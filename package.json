@@ -1,0 +1,41 @@
+{
+  "name": "ev3-judge",
+  "description": "Live judging for ev3-client",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ev3-js/ev3-judge.git"
+  },
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "postpublish": "npm run clean",
+    "postversion": "git push && git push --tags && npm publish --access=public",
+    "validate": "standard",
+    "clean": "rm -rf lib",
+    "build": "babel src --out-dir lib",
+    "init:git": "git init && git add --all && git commit -am 'FIRST' && git remote add origin https://danleavitt0@github.com/ev3-js/ev3-judge.git && git push -u origin master ",
+    "init:travis": "travis enable",
+    "postinit": "npm install && npm run init:git && npm run init:travis",
+    "test": "tape -r babel-register -r babel-polyfill test/*",
+    "dev": "beefy src/index.js",
+    "start": "node server.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.4.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.3.13",
+    "babel-polyfill": "^6.3.13",
+    "tape": "^4.2.2"
+  },
+  "bugs": {
+    "url": "https://github.com/ev3-js/ev3-judge/issues"
+  },
+  "homepage": "https://github.com/ev3-js/ev3-judge#readme",
+  "directories": {
+    "test": "test"
+  },
+  "author": "danleavitt0"
+}
