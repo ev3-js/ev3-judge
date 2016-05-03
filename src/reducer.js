@@ -1,4 +1,4 @@
-import {URL_DID_CHANGE} from './actions'
+import {URL_DID_CHANGE, SUBMIT_FORM} from './actions'
 
 function reducer (state, action) {
   switch (action.type) {
@@ -6,6 +6,12 @@ function reducer (state, action) {
       return {
         ...state,
         url: action.payload
+      }
+    case SUBMIT_FORM:
+      return {
+        ...state,
+        rule: action.payload.rule,
+        increment: action.payload.increment
       }
   }
   return state

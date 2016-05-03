@@ -1,4 +1,4 @@
-import {bindUrl} from 'redux-effects-location'
+import {bindUrl, setUrl} from 'redux-effects-location'
 
 const URL_DID_CHANGE = 'URL_DID_CHANGE'
 const SUBMIT_FORM = 'SUBMIT_FORM'
@@ -7,12 +7,11 @@ function initializeApp () {
   return bindUrl(urlChange)
 }
 
-function submitForm (e, jsonObj) {
-  console.log(jsonObj)
-  return {
+function submitForm (rules) {
+  return [setUrl('/game'), {
     type: SUBMIT_FORM,
-    payload: jsonObj
-  }
+    payload: rules
+  }]
 }
 
 function urlChange (url) {

@@ -5,15 +5,13 @@ import {Flex, Button} from 'vdux-ui'
 import {submitForm} from '../actions'
 import {setUrl} from 'redux-effects-location'
 
-const submit = [submitForm, () => setUrl('/game')]
-
 function render ({state, local}) {
   return (
-    <Form validate={validate} onSubmit={submit}>
+    <Form validate={validate} onSubmit={submitForm}>
       <Flex h='135px' column align='space-between'>
-        <TextField submit={submit} name='rule' label='rule'/>
-        <TextField submit={submit} name='increment' label='increment'/>
-        <Button fs='1em' h='40px' onClick={submit}>Submit</Button>
+        <TextField name='rule' label='rule'/>
+        <TextField name='increment' label='increment'/>
+        <input type='submit'><Button fs='1em' h='40px'>Submit</Button></input>
       </Flex>
     </Form>
   )

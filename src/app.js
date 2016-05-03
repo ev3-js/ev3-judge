@@ -9,7 +9,8 @@ import router from './router'
  * Render
  */
 
-function render ({url}, ...props) {
+function render (props) {
+  const {url} = props
   return router(url || '/', props)
 }
 

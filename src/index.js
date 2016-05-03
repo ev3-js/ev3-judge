@@ -10,6 +10,7 @@ import * as jss from 'jss-simple'
 import logger from 'redux-logger'
 import location from 'redux-effects-location'
 import multi from 'redux-multi'
+import theme from './theme'
 
 const initialState = {
   url: '/'
@@ -28,6 +29,6 @@ const {subscribe, render} = vdux({
 domready(() => {
   subscribe(state => {
     jss.attach()
-    render(app(state))
+    render(app(state), {uiTheme: theme})
   })
 })
