@@ -26,6 +26,8 @@
     "@f/create-action": "^1.1.1",
     "@f/domready": "^1.0.2",
     "@f/foreach-obj": "^1.1.1",
+    "@f/map-obj": "^1.2.2",
+    "@f/set-prop": "^1.0.0",
     "@f/splice": "^1.0.0",
     "cors": "^2.7.1",
     "enroute": "^1.0.1",

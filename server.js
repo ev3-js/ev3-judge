@@ -11,11 +11,12 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-  console.log('connection')
   socket.on('command', (cmd) => {
-    socket.broadcast.emit('command', {id: cmd.id, num: cmd.num})
+    socket.broadcast.emit('command', {id: cmd.id, num: cmd.num, team: cmd.teamName})
   })
-  socket.emit('command', {id: 'sdf', num: 1})
+  socket.on('add team', (data) => {
+    socket.broadcast.emit('add team', {id: data.id, team: data.teamName})
+  })
 })
 
 app.listen(process.env.PORT || 5000, (port) => {

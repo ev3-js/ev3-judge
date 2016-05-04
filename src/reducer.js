@@ -1,5 +1,7 @@
-import {URL_DID_CHANGE, SUBMIT_FORM, COMMAND_REGISTERED} from './actions'
 import Hashids from 'hashids'
+import setProp from '@f/set-prop'
+
+import {URL_DID_CHANGE, SUBMIT_FORM, COMMAND_REGISTERED, ADD_TEAM} from './actions'
 
 const hashids = new Hashids('the saltiest ocean', 4)
 
@@ -19,10 +21,16 @@ function reducer (state, action) {
         commands: 0
       }
     }
+    case ADD_TEAM: {
+      return {
+        ...state,
+        teams: setProp(action.payload, state.teams, 0)
+      }
+    }
     case COMMAND_REGISTERED: {
       return {
         ...state,
-        commands: action.payload
+        teams: setProp(action.payload.name, state.teams, action.payload.num)
       }
     }
   }
