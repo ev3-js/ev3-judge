@@ -1,4 +1,7 @@
-import {URL_DID_CHANGE, SUBMIT_FORM} from './actions'
+import {URL_DID_CHANGE, SUBMIT_FORM, COMMAND_REGISTERED} from './actions'
+import Hashids from 'hashids'
+
+const hashids = new Hashids('the saltiest ocean', 4)
 
 function reducer (state, action) {
   switch (action.type) {
@@ -7,12 +10,21 @@ function reducer (state, action) {
         ...state,
         url: action.payload
       }
-    case SUBMIT_FORM:
+    case SUBMIT_FORM: {
       return {
         ...state,
         rule: action.payload.rule,
-        increment: action.payload.increment
+        increments: action.payload.increments,
+        id: hashids.encode(Math.floor(Math.random() * 1000) + 1),
+        commands: 0
       }
+    }
+    case COMMAND_REGISTERED: {
+      return {
+        ...state,
+        commands: action.payload
+      }
+    }
   }
   return state
 }

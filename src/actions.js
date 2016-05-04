@@ -2,6 +2,7 @@ import {bindUrl, setUrl} from 'redux-effects-location'
 
 const URL_DID_CHANGE = 'URL_DID_CHANGE'
 const SUBMIT_FORM = 'SUBMIT_FORM'
+const COMMAND_REGISTERED = 'COMMAND_REGISTERED'
 
 function initializeApp () {
   return bindUrl(urlChange)
@@ -21,9 +22,18 @@ function urlChange (url) {
   }
 }
 
+function registerCommand (num) {
+  return {
+    type: COMMAND_REGISTERED,
+    payload: num
+  }
+}
+
 export {
   URL_DID_CHANGE,
   SUBMIT_FORM,
+  COMMAND_REGISTERED,
   submitForm,
-  initializeApp
+  initializeApp,
+  registerCommand
 }

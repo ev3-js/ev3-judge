@@ -1,11 +1,8 @@
 var app = require('express')()
-var path = require('path')
 var socketIO = require('socket.io')
-var http = require('http')
 var cors = require('cors')
 
-var server = http.createServer(app)
-var io = socketIO(server)
+var io = socketIO(3000)
 
 app.use(cors())
 
@@ -14,9 +11,11 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-  socket.on('some event', (msg) => {
-    // do something here
+  console.log('connection')
+  socket.on('command', (cmd) => {
+    socket.broadcast.emit('command', {id: cmd.id, num: cmd.num})
   })
+  socket.emit('command', {id: 'sdf', num: 1})
 })
 
 app.listen(process.env.PORT || 5000, (port) => {

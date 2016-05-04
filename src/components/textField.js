@@ -1,8 +1,11 @@
+/** @jsx element */
+
 import element from 'vdux/element'
 import css from 'jss-simple'
 import {Block, Tooltip} from 'vdux-ui'
 
 const SET_ERROR = 'SET_ERROR'
+const CLEAR_ERROR = 'CLEAR_ERROR'
 const style = css({
   input: {
     padding: '12px 14px',
@@ -13,7 +16,8 @@ const style = css({
     outline: '0',
     background: '#ececec',
     display: 'block',
-    position: 'relative'
+    position: 'relative',
+    width: '200px'
   },
   label: {
     'font-size': '13px'
@@ -31,7 +35,7 @@ function render ({state, props, local}) {
   const {label, name} = props
 
   return (
-    <Block relative>
+    <Block margin='5px 0' relative>
       <input
         required
         class={style.input}
@@ -46,7 +50,7 @@ function render ({state, props, local}) {
 
 function clearError () {
   return {
-    type: 'CLEAR_ERROR'
+    type: CLEAR_ERROR
   }
 }
 
@@ -70,7 +74,7 @@ function reducer (state, action) {
         ...state,
         error: action.payload
       }
-    case 'CLEAR_ERROR':
+    case CLEAR_ERROR:
       return {
         ...state,
         error: ''

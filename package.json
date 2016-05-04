@@ -23,14 +23,19 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@f/create-action": "^1.1.1",
     "@f/domready": "^1.0.2",
+    "@f/foreach-obj": "^1.1.1",
+    "@f/splice": "^1.0.0",
     "cors": "^2.7.1",
     "enroute": "^1.0.1",
     "express": "^4.13.4",
+    "hashids": "^1.0.2",
     "jss-simple": "^0.3.1",
     "multi": "^0.1.3",
     "redux-effects-location": "^0.2.0",
     "socket.io": "^1.4.5",
+    "string-template": "^1.0.0",
     "vdux": "^2.4.5",
     "vdux-form": "^1.0.4",
     "vdux-ui": "^1.1.3"

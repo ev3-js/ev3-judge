@@ -10,7 +10,7 @@ import * as jss from 'jss-simple'
 import logger from 'redux-logger'
 import location from 'redux-effects-location'
 import multi from 'redux-multi'
-import theme from './theme'
+import server from './middleware/server'
 
 const initialState = {
   url: '/'
@@ -23,12 +23,12 @@ const initialState = {
 const {subscribe, render} = vdux({
   reducer,
   initialState,
-  middleware: [multi, location(), logger()]
+  middleware: [multi, location(), server(), logger()]
 })
 
 domready(() => {
   subscribe(state => {
     jss.attach()
-    render(app(state), {uiTheme: theme})
+    render(app(state))
   })
 })

@@ -3,7 +3,7 @@ import {Flex, Box} from 'vdux-ui'
 
 const styles = {
   container: {
-    fontFamily: 'Roboto sans-serif'
+    fontFamily: `'Roboto', sans-serif`
   }
 }
 

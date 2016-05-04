@@ -1,3 +1,5 @@
+/** @jsx element */
+
 /**
  * Imports
  */
@@ -40,11 +42,13 @@ function form (params, props) {
 }
 
 function game (params, props) {
-  return (
-    <Centered>
-      <Game {...props}/>
-    </Centered>
-  )
+  if (props.rule) {
+    return (
+      <Centered>
+        <Game {...props}/>
+      </Centered>
+    )
+  }
 }
 
 /**

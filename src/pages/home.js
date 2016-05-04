@@ -1,3 +1,5 @@
+/** @jsx element */
+
 import element from 'vdux/element'
 import css from 'jss-simple'
 import {Button} from 'vdux-ui'
