@@ -6,6 +6,9 @@
     "url": "git://github.com/ev3-js/ev3-judge.git"
   },
   "version": "0.1.1",
+  "engines": {
+    "node": "6.0.0"
+  },
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
