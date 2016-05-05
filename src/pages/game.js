@@ -16,7 +16,9 @@ function render ({props, state, local}) {
       <Box flex='1' auto>
         <Card margin='10px' p='20px'><Text>id: <Text color='red'>{id}</Text></Text></Card>
       </Box>
-      {getTeams()}
+      <Flex align='start center'>
+        {getTeams()}
+      </Flex>
     </Flex>
   )
 

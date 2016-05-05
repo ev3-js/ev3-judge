@@ -1,7 +1,7 @@
 /** @jsx element */
 import element from 'vdux/element'
 import PointsBox from './pointsBox'
-import {Box, Flex, Card, Text, Button} from 'vdux-ui'
+import {Box, Flex, Card, Text, Button, Block} from 'vdux-ui'
 
 const ADD_POINTS = 'ADD_POINTS'
 
@@ -33,8 +33,12 @@ function render ({props, local, state}) {
           </Box>
           <Box wide auto>
             <Card p='20px' margin='10px'>
-              <Text block>Command Count</Text>
-              <Text block>{commands}</Text>
+              <Block>
+                <Text block>Command Count</Text>
+              </Block>
+              <Block>
+                <Text block>{commands}</Text>
+              </Block>
             </Card>
           </Box>
         </Flex>

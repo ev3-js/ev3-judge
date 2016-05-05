@@ -3,7 +3,7 @@
  */
 
 import test from 'tape'
-import ev3-judge from '../src'
+import ev3Judge from '../src'
 
 /**
  * Tests
