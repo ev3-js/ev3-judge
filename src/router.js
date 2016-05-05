@@ -18,7 +18,7 @@ import enroute from 'enroute'
 const router = enroute({
   '/': home,
   '/form': form,
-  '/game': game
+  '/game/:id': game
 })
 
 /**

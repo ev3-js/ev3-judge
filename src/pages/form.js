@@ -5,7 +5,7 @@ import TextField from '../components/textField'
 import TextFields from '../components/textFields'
 import createAction from '@f/create-action'
 import splice from '@f/splice'
-import {Card, Flex, Button} from 'vdux-ui'
+import {Card, Flex, Button, Block} from 'vdux-ui'
 import {submitForm} from '../actions'
 
 const ADD_INCREMENT = 'ADD_INCREMENT'
@@ -40,8 +40,10 @@ function render ({state, local}) {
               </TextFields>
             )
           })}
-          <Button padding='10px' margin='10px 0' onClick={local(addIncrement)}>Add points category</Button>
-          <input type='submit'><Button fs='1em' h='40px'>Submit</Button></input>
+          <Block p='0 5px'>
+            <Button weight='600' fs='1em' w='200px' padding='10px' margin='5px 0' onClick={local(addIncrement)}>Add points category</Button>
+            <input type='submit'/>
+          </Block>
         </Flex>
       </Card>
     </Form>
@@ -71,41 +73,40 @@ function cast (model) {
   }
 }
 
-function validate (fields) {
-  for (var field in fields) {
-    if (!fields[field]) {
+function validate ({rule, increments}) {
+  let re = /(\{points\})(.*\{commands\})|(\{commands\})(.*\{points\})/gi
+  if (!rule.match(re)) {
+    return {
+      valid: false,
+      errors: [{
+        field: 'rule',
+        message: 'rule must contain {points} and {commands}'
+      }]
+    }
+  }
+  for (var i in increments) {
+    let inc = increments[i]
+    if (!inc.description) {
       return {
         valid: false,
         errors: [{
-          field,
+          field: `description${Number(i) + 1}`,
           message: 'required'
         }]
       }
     }
-    if (field.match(/rule/gi)) {
-      let re = /(\{points\})(.*\{commands\})|(\{commands\})(.*\{points\})/gi
-      if (!fields[field].match(re)) {
-        return {
-          valid: false,
-          errors: [{
-            field,
-            message: 'rule must contain {points} and {commands}'
-          }]
-        }
-      }
-    }
-    if (field.match(/points/gi)) {
-      if (isNaN(fields[field])) {
-        return {
-          valid: false,
-          errors: [{
-            field,
-            message: 'must be a number'
-          }]
-        }
+    if (isNaN(inc.points)) {
+      console.log(inc.points)
+      return {
+        valid: false,
+        errors: [{
+          field: `points${Number(i) + 1}`,
+          message: 'must be a number'
+        }]
       }
     }
   }
+
   return {
     valid: true
   }

@@ -1,24 +1,32 @@
-var app = require('express')()
-var socketIO = require('socket.io')
-var cors = require('cors')
+var express = require('express')
+var app = express()
+var http = require('http').Server(app)
+var io = require('socket.io')(http)
 
-var io = socketIO(3000)
-
-app.use(cors())
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
-})
+app.use('/static', express.static(__dirname + '/public'))
 
 io.on('connection', (socket) => {
+  console.log('connection')
   socket.on('command', (cmd) => {
     socket.broadcast.emit('command', {id: cmd.id, num: cmd.num, team: cmd.teamName})
   })
   socket.on('add team', (data) => {
-    socket.broadcast.emit('add team', {id: data.id, team: data.teamName})
+    socket.broadcast.emit('add team', {id: data.id, team: data.teamName, color: data.color})
   })
 })
 
-app.listen(process.env.PORT || 5000, (port) => {
-  console.log(`Server listening on port ${port}`)
+app.get('/style.css', (req, res) => {
+  res.sendFile(__dirname + '/public/style.css')
+})
+
+app.get('/bundle.js', (req, res) => {
+  res.sendFile(__dirname + '/public/bundle.js')
+})
+
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html')
+})
+
+http.listen(process.env.PORT || 5000, (port) => {
+  console.log(`Server listening on port 5000`)
 })

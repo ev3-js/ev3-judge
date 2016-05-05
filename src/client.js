@@ -5,12 +5,13 @@
 import domready from '@f/domready'
 import vdux from 'vdux/dom'
 import reducer from './reducer'
-import app from './app'
 import * as jss from 'jss-simple'
 import logger from 'redux-logger'
 import location from 'redux-effects-location'
 import multi from 'redux-multi'
 import server from './middleware/server'
+
+var app = require('./app').default
 
 const initialState = {
   url: '/'
@@ -20,7 +21,7 @@ const initialState = {
  * App
  */
 
-const {subscribe, render} = vdux({
+const {subscribe, render, replaceReducer} = vdux({
   reducer,
   initialState,
   middleware: [multi, location(), server(), logger()]
@@ -32,3 +33,10 @@ domready(() => {
     render(app(state))
   })
 })
+
+if (module.hot) {
+  module.hot.accept(['./app', './reducer'], () => {
+    replaceReducer(require('./reducer').default)
+    app = require('./app').default
+  })
+}

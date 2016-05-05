@@ -19,7 +19,7 @@
     "init:travis": "travis enable",
     "postinit": "npm install && npm run init:git && npm run init:travis",
     "test": "tape -r babel-register -r babel-polyfill test/*",
-    "dev": "beefy src/index.js",
+    "dev": "budo src/index.js -P -- -browserify-hmr",
     "start": "node server.js"
   },
   "dependencies": {
@@ -29,6 +29,7 @@
     "@f/map-obj": "^1.2.2",
     "@f/set-prop": "^1.0.0",
     "@f/splice": "^1.0.0",
+    "babel-polyfill": "^6.8.0",
     "cors": "^2.7.1",
     "enroute": "^1.0.1",
     "express": "^4.13.4",
@@ -50,6 +51,7 @@
     "babel-preset-stage-2": "^6.5.0",
     "babel-register": "^6.3.13",
     "babelify": "^7.3.0",
+    "browserify-hmr": "^0.3.1",
     "redux-logger": "^2.6.1",
     "tape": "^4.2.2"
   },
