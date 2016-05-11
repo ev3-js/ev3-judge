@@ -1,24 +1,23 @@
 /** @jsx element */
 
 import element from 'vdux/element'
-import {Block, Tooltip} from 'vdux-ui'
+import {Block, Tooltip, Input} from 'vdux-ui'
 
 const SET_ERROR = 'SET_ERROR'
 const CLEAR_ERROR = 'CLEAR_ERROR'
 
 function render ({state, props, local}) {
   const {error} = state
-  const {label, name} = props
+  const {label, name, wide} = props
 
   return (
-    <Block margin='5px 0' relative>
-      <input
+    <Block {...props}>
+      <Input
         required
         onChange={local(clearError)}
         placeholder={label}
         name={name}
         onInvalid={local(setError)} />
-      <Tooltip bgColor='red' placement='right' show={error}>{error}</Tooltip>
     </Block>
   )
 }

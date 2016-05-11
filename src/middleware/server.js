@@ -1,5 +1,4 @@
 import io from 'socket.io-client'
-// import {websocket} from '../../config'
 import {registerCommand, addTeam} from '../actions'
 
 export default () => ({dispatch, getState}) => {

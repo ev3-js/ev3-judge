@@ -10,6 +10,7 @@ import logger from 'redux-logger'
 import location from 'redux-effects-location'
 import multi from 'redux-multi'
 import server from './middleware/server'
+import firebase from './middleware/firebase'
 
 var app = require('./app').default
 
@@ -24,7 +25,7 @@ const initialState = {
 const {subscribe, render, replaceReducer} = vdux({
   reducer,
   initialState,
-  middleware: [multi, location(), server(), logger()]
+  middleware: [multi, location(), server(), firebase('https://play-ev3.firebaseio.com/gameTypes'), logger()]
 })
 
 domready(() => {

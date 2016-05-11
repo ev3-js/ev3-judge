@@ -6,6 +6,7 @@ const URL_DID_CHANGE = 'URL_DID_CHANGE'
 const SUBMIT_FORM = 'SUBMIT_FORM'
 const COMMAND_REGISTERED = 'COMMAND_REGISTERED'
 const ADD_TEAM = 'ADD_TEAM'
+const GET_TYPES = 'GET_TYPES'
 
 function initializeApp () {
   return bindUrl(urlChange)
@@ -36,6 +37,13 @@ function registerCommand (num, name) {
   }
 }
 
+function getGameTypes (data) {
+  return {
+    type: GET_TYPES,
+    payload: data
+  }
+}
+
 function addTeam (name, color) {
   return {
     type: ADD_TEAM,
@@ -51,8 +59,10 @@ export {
   SUBMIT_FORM,
   COMMAND_REGISTERED,
   ADD_TEAM,
+  GET_TYPES,
   submitForm,
   initializeApp,
   registerCommand,
-  addTeam
+  addTeam,
+  getGameTypes
 }

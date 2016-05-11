@@ -1,10 +1,11 @@
 /** @jsx element */
 import element from 'vdux/element'
 import Form from 'vdux-form'
-import TextField from '../components/textField'
 import TextFields from '../components/textFields'
 import createAction from '@f/create-action'
 import splice from '@f/splice'
+import gameValidate from '../utils/gameValidator'
+import {Input} from 'vdux-containers'
 import {Card, Flex, Button, Block} from 'vdux-ui'
 import {submitForm} from '../actions'
 
@@ -22,27 +23,31 @@ function initialState () {
   }
 }
 
-function render ({state, local}) {
+function render ({state, local, props}) {
   const {increment} = state
   return (
     <Form cast={cast} validate={validate} onSubmit={submitForm}>
-      <Card p='20px'>
+      <Card p='20px'>        
         <Flex column align='space-between'>
-          <TextFields title='Points Expression'>
-            <TextField name='rule' label='points expression'/>
+          <TextFields title='Game'>
+            <Input name='name' placeholder='name'/>
+            <Input wide name='rule' placeholder='points expression'/>
           </TextFields>
           {increment.map((inc, i) => {
             const id = i + 1
             return (
               <TextFields onErase={removeInc(i)} erase={id > 1 && id === increment.length} title={`Goal #${id}`}>
-                <TextField name={`description${id}`} label='Goal'/>
-                <TextField name={`points${id}`} label='Points'/>
+                <Flex>
+                  <Input mr='10px' name={`increments.${i}.name`} placeholder='Goal'/>
+                  <Input name={`increments.${i}.points`} placeholder='Points'/>
+                </Flex>
+                <Input wordBreak='wrap-line' name={`increments.${i}.description`} placeholder='Description'/>
               </TextFields>
             )
           })}
           <Block p='0 5px'>
-            <Button weight='600' fs='1em' w='200px' padding='10px' margin='5px 0' onClick={local(addIncrement)}>Add points category</Button>
-            <input type='submit'/>
+            <Button weight='600' fs='1em' w='100%' padding='10px' margin='5px 0' onClick={local(addIncrement)}>Add points category</Button>
+            <Input type='submit'/>
           </Block>
         </Flex>
       </Card>
@@ -55,61 +60,29 @@ function render ({state, local}) {
 }
 
 function cast (model) {
+  let {rule, name} = model
   let increments = []
   for (var field in model) {
     let match = field.match(/\d/gi)
-    let num = match ? match[0] - 1 : undefined
-    let word = field.split(/\d/gi)[0]
+    let num = match ? match[0] : undefined
+    let word = field.split('.')[2]
     if (!isNaN(num)) {
       if (!increments[num]) {
         increments[num] = {}
       }
-      increments[num][word] = model[field]
+      increments[num][word] = isNaN(model[field]) ? model[field] : Number(model[field])
     }
   }
   return {
     increments,
-    rule: model.rule
+    rule,
+    name
   }
 }
 
-function validate ({rule, increments}) {
-  let re = /(\{points\})(.*\{commands\})|(\{commands\})(.*\{points\})/gi
-  if (!rule.match(re)) {
-    return {
-      valid: false,
-      errors: [{
-        field: 'rule',
-        message: 'rule must contain {points} and {commands}'
-      }]
-    }
-  }
-  for (var i in increments) {
-    let inc = increments[i]
-    if (!inc.description) {
-      return {
-        valid: false,
-        errors: [{
-          field: `description${Number(i) + 1}`,
-          message: 'required'
-        }]
-      }
-    }
-    if (isNaN(inc.points)) {
-      console.log(inc.points)
-      return {
-        valid: false,
-        errors: [{
-          field: `points${Number(i) + 1}`,
-          message: 'must be a number'
-        }]
-      }
-    }
-  }
-
-  return {
-    valid: true
-  }
+function validate (fields) {
+  console.log(fields)
+  return gameValidate(fields)
 }
 
 function reducer (state, action) {

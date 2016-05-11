@@ -7,6 +7,7 @@ import {Flex} from 'vdux-ui'
 
 function render ({props, state, local}) {
   const {
+    id,
     increments = [],
     rule = '{points} / {commands}',
     teams = {}
@@ -14,7 +15,7 @@ function render ({props, state, local}) {
   return (
     <Flex h='80vh' column align='space-between'>
       <Flex h='100%'>
-        {getTeams().length < 1 ? <NoTeams/> : getTeams()}
+        {getTeams().length < 1 ? <NoTeams id={id}/> : getTeams()}
       </Flex>
     </Flex>
   )
