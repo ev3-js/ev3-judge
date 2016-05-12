@@ -1,18 +1,12 @@
 import element from 'vdux/element'
-import {Flex, Box} from 'vdux-ui'
-
-const styles = {
-  container: {
-    fontFamily: `'Roboto', sans-serif`
-  }
-}
+import {Flex, Block} from 'vdux-ui'
 
 function render ({children}) {
   return (
-    <Flex style={styles.container} align='center center' absolute wide tall>
-      <Box auto>
+    <Flex align='center center' absolute wide tall>
+      <Block h='90vh' auto>
         {children}
-      </Box>
+      </Block>
     </Flex>
   )
 }
