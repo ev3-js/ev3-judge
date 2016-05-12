@@ -20,9 +20,9 @@ function render ({props}) {
                 weight='600'
                 borderRight={i < increments.length - 1 ? '1px solid #e5e5e5' : '0'}
                 outline='none'
-                onClick={onClick({description: inc.description, points: inc.points})}
+                onClick={onClick({description: inc.name, points: inc.points})}
               >
-                {inc.description}
+                {inc.name}
               </Button>
             </Box>
           )

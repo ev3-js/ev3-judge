@@ -27,11 +27,12 @@ function render ({state, local, props}) {
   const {increment} = state
   return (
     <Form cast={cast} validate={validate} onSubmit={submitForm}>
-      <Card p='20px'>        
+      <Card overflowY='auto' maxHeight='90vh' p='20px'>
         <Flex column align='space-between'>
           <TextFields title='Game'>
             <Input name='name' placeholder='name'/>
             <Input wide name='rule' placeholder='points expression'/>
+            <Input name='description' placeholder='description'/>
           </TextFields>
           {increment.map((inc, i) => {
             const id = i + 1
@@ -60,7 +61,7 @@ function render ({state, local, props}) {
 }
 
 function cast (model) {
-  let {rule, name} = model
+  let {rule, name, description} = model
   let increments = []
   for (var field in model) {
     let match = field.match(/\d/gi)
@@ -76,12 +77,12 @@ function cast (model) {
   return {
     increments,
     rule,
-    name
+    name,
+    description
   }
 }
 
 function validate (fields) {
-  console.log(fields)
   return gameValidate(fields)
 }
 

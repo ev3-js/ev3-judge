@@ -6,6 +6,7 @@ var io = require('socket.io')(http)
 app.use('/static', express.static(__dirname + '/public'))
 
 io.on('connection', (socket) => {
+  console.log('connection')
   socket.on('command', (cmd) => {
     socket.broadcast.emit('command', {id: cmd.id, num: cmd.num, team: cmd.teamName})
   })
