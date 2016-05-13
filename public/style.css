@@ -18,6 +18,7 @@ input {
   display: block;
   position: relative;
   width: 100%;
+  transition: background .3s ease-in-out;
 }
 input[type='submit'] {
   cursor: pointer;

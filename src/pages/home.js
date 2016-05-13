@@ -3,7 +3,7 @@
 import element from 'vdux/element'
 import GameCard from '../components/gameCard'
 import objReduce from '@f/reduce-obj'
-import {Button, Block, Card, Icon, Grid} from 'vdux-ui'
+import {Button, Block, Card, Icon, Grid} from 'vdux-containers'
 import {setUrl} from 'redux-effects-location'
 import {initializeApp} from '../actions'
 
@@ -14,16 +14,28 @@ function onCreate () {
 function render ({props}) {
   const {gameTypes} = props
   return (
-  	<Grid itemsPerRow={3}>
-      <Block bgColor='transparent' border='1px dashed #333' m='15px' w='30vw' h='225px' minWidth='300px'>
-        <Button wide tall column outline='none' align='center center' color='#333' fs='40px' bgColor='#d5d5d5' onClick={() => setUrl('/form')}>
-          <Card circle sq='60px' align='center center' bgColor='#7BCED2'>
-            <Icon fs='40px' name='add' color='#fff'/>
-          </Card>
-        </Button>
-      </Block>
-	  	{gameTypes ? getItems(gameTypes) : '...loading'}
-    </Grid>
+    <Block>
+      <Grid columnAlign='start start' itemsPerRow={3}>
+        {gameTypes ? getItems(gameTypes) : '...loading'}
+      </Grid>
+      <Button
+        fixed
+        circle
+        sq='60px'
+        bottom='20px'
+        right='20px'
+        outline='none'
+        align='center center'
+        color='#333'
+        fs='40px'
+        bgColor='#7BCED2'
+        onClick={() => setUrl('/form')}
+        transition='background .3s ease-in-out'
+        boxShadow='0 1px 2px 0 rgba(0,0,0,0.2)'
+      >
+        <Icon fs='40px' name='add' color='#fff'/>
+      </Button>
+    </Block>
   )
 }
 

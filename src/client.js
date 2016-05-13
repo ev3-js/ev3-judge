@@ -10,6 +10,7 @@ import logger from 'redux-logger'
 import location from 'redux-effects-location'
 import multi from 'redux-multi'
 import server from './middleware/server'
+import theme from './theme'
 import firebase from './middleware/firebase'
 
 var app = require('./app').default
@@ -31,7 +32,7 @@ const {subscribe, render, replaceReducer} = vdux({
 domready(() => {
   subscribe(state => {
     jss.attach()
-    render(app(state))
+    render(app(state), {uiTheme: theme})
   })
 })
 

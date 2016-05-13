@@ -9,7 +9,6 @@ import Form from './pages/form'
 import Game from './pages/game'
 import Centered from './layouts/centered'
 import LeftBar from './layouts/leftBar'
-import Menu from './components/menu'
 import element from 'vdux/element'
 import enroute from 'enroute'
 

@@ -5,8 +5,9 @@ import TextFields from '../components/textFields'
 import createAction from '@f/create-action'
 import splice from '@f/splice'
 import gameValidate from '../utils/gameValidator'
-import {Input} from 'vdux-containers'
-import {Card, Flex, Button, Block} from 'vdux-ui'
+import Toggle from '../components/toggle'
+import {Button, Input} from 'vdux-containers'
+import {Card, Flex, Block} from 'vdux-ui'
 import {submitForm} from '../actions'
 
 const ADD_INCREMENT = 'ADD_INCREMENT'
@@ -27,12 +28,13 @@ function render ({state, local, props}) {
   const {increment} = state
   return (
     <Form cast={cast} validate={validate} onSubmit={submitForm}>
-      <Card overflowY='auto' maxHeight='90vh' p='20px'>
+      <Card p='20px'>
         <Flex column align='space-between'>
           <TextFields title='Game'>
             <Input name='name' placeholder='name'/>
             <Input wide name='rule' placeholder='points expression'/>
             <Input name='description' placeholder='description'/>
+            <Toggle label='timer'/>
           </TextFields>
           {increment.map((inc, i) => {
             const id = i + 1
@@ -42,13 +44,23 @@ function render ({state, local, props}) {
                   <Input mr='10px' name={`increments.${i}.name`} placeholder='Goal'/>
                   <Input name={`increments.${i}.points`} placeholder='Points'/>
                 </Flex>
-                <Input wordBreak='wrap-line' name={`increments.${i}.description`} placeholder='Description'/>
+                <Input name={`increments.${i}.description`} placeholder='Description'/>
               </TextFields>
             )
           })}
           <Block p='0 5px'>
-            <Button weight='600' fs='1em' w='100%' padding='10px' margin='5px 0' onClick={local(addIncrement)}>Add points category</Button>
-            <Input type='submit'/>
+            <Button
+              transition='background .3s ease-in-out'
+              outline='none'
+              weight='600'
+              fs='1em'
+              w='100%'
+              padding='10px'
+              mb='8px'
+              onClick={local(addIncrement)}>
+              Add points category
+            </Button>
+            <Input hoverProps={{bgColor: '#d5d5d5'}} type='submit'/>
           </Block>
         </Flex>
       </Card>

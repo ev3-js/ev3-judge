@@ -15,7 +15,6 @@ export default (url) => ({dispatch}) => {
 	})
 	return (next) => (action) => {
 		if (action.type === FIREBASE_SET) {
-			console.log(action)
 			const {name} = action.payload
 			gameTypesRef.child(name).set(action.payload)
 		}

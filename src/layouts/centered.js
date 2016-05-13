@@ -3,8 +3,8 @@ import {Flex, Block} from 'vdux-ui'
 
 function render ({children}) {
   return (
-    <Flex align='center center' absolute wide tall>
-      <Block h='90vh' auto>
+    <Flex align='center center' relative wide tall>
+      <Block m='20px' auto>
         {children}
       </Block>
     </Flex>

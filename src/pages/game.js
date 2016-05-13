@@ -3,7 +3,10 @@
 import element from 'vdux/element'
 import Team from '../components/team'
 import NoTeams from '../components/noTeams'
-import {Flex} from 'vdux-ui'
+import ControlPanel from '../components/controlPanel'
+import map from '@f/map'
+import getScore from '../utils/getScore'
+import {Button, Card, Flex, Grid} from 'vdux-ui'
 
 function render ({props, state, local}) {
   const {
@@ -12,24 +15,29 @@ function render ({props, state, local}) {
     rule = '{points} / {commands}',
     teams = {}
   } = props
+  const points = map((team) => {
+    return getScore(team.commands, team.points, rule)
+  }, teams)
+  const items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
+
   return (
     <Flex h='80vh' column align='space-between'>
       <Flex h='100%'>
-        {getTeams().length < 1 ? <NoTeams id={id}/> : getTeams()}
+        {items}
       </Flex>
     </Flex>
   )
 
   function getTeams () {
-    var results = []
+    var results = [<ControlPanel teams={teams} points={points}/>]
     for (var team in teams) {
       results.push(
         <Team
           name={team}
-          rule={rule}
           color={teams[team].color}
           commands={teams[team].commands}
-          increments={increments} />
+          increments={increments}
+          points={points[team]} />
       )
     }
     return results

@@ -1,6 +1,13 @@
 import setProp from '@f/set-prop'
 
-import {URL_DID_CHANGE, SUBMIT_FORM, COMMAND_REGISTERED, ADD_TEAM, GET_TYPES} from './actions'
+import {
+  URL_DID_CHANGE,
+  SUBMIT_FORM,
+  COMMAND_REGISTERED,
+  ADD_TEAM,
+  GET_TYPES,
+  ADD_POINTS
+} from './actions'
 
 function reducer (state, action) {
   switch (action.type) {
@@ -21,9 +28,17 @@ function reducer (state, action) {
     case ADD_TEAM:
       return {
         ...state,
-        teams: setProp(action.payload.name, state.teams, {color: action.payload.color})
+        teams: setProp(action.payload.name, state.teams, {color: action.payload.color, points: 0})
       }
-    case GET_TYPES: 
+    case ADD_POINTS:
+      return {
+        ...state,
+        teams: setProp(action.payload.team, state.teams, {
+          ...state.teams[action.payload.team],
+          points: state.teams[action.payload.team].points + action.payload.points
+        })
+      }
+    case GET_TYPES:
       return {
         ...state,
         gameTypes: action.payload

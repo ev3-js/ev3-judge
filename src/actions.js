@@ -9,6 +9,7 @@ const COMMAND_REGISTERED = 'COMMAND_REGISTERED'
 const ADD_TEAM = 'ADD_TEAM'
 const GET_TYPES = 'GET_TYPES'
 const FIREBASE_SET = 'FIREBASE_SET'
+const ADD_POINTS = 'ADD_POINTS'
 
 function initializeApp () {
   return bindUrl(urlChange)
@@ -27,6 +28,16 @@ function createGame (rules) {
     setUrl(`/game/${id}`),
     {type: SUBMIT_FORM, payload: {...rules, id}}
   ]
+}
+
+function addPoints (team, {points}) {
+  return {
+    type: ADD_POINTS,
+    payload: {
+      team,
+      points
+    }
+  }
 }
 
 function urlChange (url) {
@@ -70,10 +81,12 @@ export {
   ADD_TEAM,
   GET_TYPES,
   FIREBASE_SET,
+  ADD_POINTS,
   submitForm,
   createGame,
   initializeApp,
   registerCommand,
   addTeam,
-  getGameTypes
+  getGameTypes,
+  addPoints
 }
