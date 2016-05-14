@@ -29,7 +29,7 @@ function render ({props, state, local}) {
   )
 
   function getTeams () {
-    var results = [<ControlPanel teams={teams} points={points}/>]
+    var results = []
     for (var team in teams) {
       results.push(
         <Team
