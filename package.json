@@ -67,7 +67,8 @@
     "babelify": "^7.3.0",
     "browserify-hmr": "^0.3.1",
     "redux-logger": "^2.6.1",
-    "tape": "^4.2.2"
+    "tape": "^4.2.2",
+    "uglifyjs": "^2.4.10"
   },
   "bugs": {
     "url": "https://github.com/ev3-js/ev3-judge/issues"

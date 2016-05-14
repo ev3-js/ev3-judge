@@ -3,7 +3,6 @@
 import element from 'vdux/element'
 import Team from '../components/team'
 import NoTeams from '../components/noTeams'
-import ControlPanel from '../components/controlPanel'
 import map from '@f/map'
 import getScore from '../utils/getScore'
 import {Button, Card, Flex, Grid} from 'vdux-ui'
