@@ -33,13 +33,14 @@ function render ({props, children}) {
           {label}
         </Block>
         <Block relative p='4px 0px 6px 2px' w='36px'>
-          <Block pill='30px' wide h='14px' transition='background .3s ease-in-out' highlight={active} bgColor={active ? bgColor : '#b5b5b5'}/>
+          <Block pill='30px' wide h='14px' opacity='0.6' transition='background .3s ease-in-out' bgColor={active ? bgColor : '#b5b5b5'}/>
           <Block
             absolute
             circle
             top='1px'
             lh='24px'
             sq='20px'
+            highlight={active}
             ml={active ? '18px' : '0px'}
             bgColor={active ? bgColor : '#e5e5e5'}
             transition='all .3s ease-in-out'

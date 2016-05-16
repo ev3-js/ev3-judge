@@ -30,8 +30,9 @@ function render ({props}) {
         fs='40px'
         bgColor='#7BCED2'
         onClick={() => setUrl('/form')}
-        transition='background .3s ease-in-out'
+        transition='all .3s ease-in-out'
         boxShadow='0 1px 2px 0 rgba(0,0,0,0.2)'
+        hoverProps={{transform: 'rotateZ(180deg)', highlight: true}}
       >
         <Icon fs='40px' name='add' color='#fff'/>
       </Button>
