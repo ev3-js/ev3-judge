@@ -26,7 +26,7 @@ const initialState = {
 const {subscribe, render, replaceReducer} = vdux({
   reducer,
   initialState,
-  middleware: [multi, location(), server(), firebase('https://play-ev3.firebaseio.com/gameTypes'), logger()]
+  middleware: [multi, location(), server(), firebase('https://play-ev3.firebaseio.com/gameTypes')]
 })
 
 domready(() => {

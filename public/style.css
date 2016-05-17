@@ -18,7 +18,11 @@ input {
   display: block;
   position: relative;
   width: 100%;
-  transition: background .3s ease-in-out;
+  opacity: 1;
+  transition: opacity .3s ease-in-out;
+}
+input:disabled {
+  opacity: 0.4;
 }
 input[type='submit'] {
   cursor: pointer;

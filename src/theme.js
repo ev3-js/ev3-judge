@@ -3,11 +3,12 @@ const baseColors = {
   white: '#fff',
   gray: '#ddd',
   midgray: '#888',
-  lightgray: '#e5e5e5',
+  lightgray: '#f5f5f5',
   blue: 'rgb(66, 152, 245)',
   red: '#f52',
   orange: '#f70',
-  green: '#1c7'
+  green: '#1c7',
+  darkgrey: '#b5b5b5'
 }
 
 export default {

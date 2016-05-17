@@ -1,22 +1,28 @@
 /** @jsx element */
 import element from 'vdux/element'
-import Form from 'vdux-form'
-import TextFields from '../components/textFields'
+import handleActions from '@f/handle-actions'
 import createAction from '@f/create-action'
 import splice from '@f/splice'
 import gameValidate from '../utils/gameValidator'
-import Toggle from '../components/toggle'
+
+import Form from 'vdux-form'
+import TextFields from '../components/textFields'
+import Toggle from '../components/toggleLogic'
 import {Button, Input} from 'vdux-containers'
 import {Card, Flex, Block} from 'vdux-ui'
+
 import {submitForm} from '../actions'
 
 const ADD_INCREMENT = 'ADD_INCREMENT'
 const RM_INCREMENT = 'RM_INCREMENT'
+const ENABLE_TIME = 'ENABLE_TIME'
+const enableTime = createAction(ENABLE_TIME)
 const rmIncrement = createAction(RM_INCREMENT)
 const addIncrement = createAction(ADD_INCREMENT)
 
 function initialState () {
   return {
+    timer: false,
     increment: [{
       description: '',
       points: ''
@@ -25,7 +31,7 @@ function initialState () {
 }
 
 function render ({state, local, props}) {
-  const {increment} = state
+  const {increment, timer} = state
   return (
     <Form cast={cast} validate={validate} onSubmit={submitForm}>
       <Card p='20px'>
@@ -34,7 +40,13 @@ function render ({state, local, props}) {
             <Input name='name' placeholder='name'/>
             <Input wide name='rule' placeholder='points expression'/>
             <Input name='description' placeholder='description'/>
-            <Toggle label='timer'/>
+            <Flex relative align='flex-start center'>
+              <Block w='25%'>
+                <Toggle w='100px' mb='0' weight='300' onClick={local(enableTime)} name='timerToggle' label='Timer'/>
+              </Block>
+              <Input w='60px' mb='0' ml='20px' disabled={!timer} placeholder='min' name='minutes'/>
+              <Input w='60px' mb='0' ml='5px' disabled={!timer} placeholder='sec' name='seconds'/>
+            </Flex>
           </TextFields>
           {increment.map((inc, i) => {
             const id = i + 1
@@ -73,8 +85,10 @@ function render ({state, local, props}) {
 }
 
 function cast (model) {
-  let {rule, name, description} = model
+  let {rule, name, description, minutes, seconds} = model
   let increments = []
+  minutes = Number(minutes) || 0
+  seconds = Number(seconds) || 0
   for (var field in model) {
     let match = field.match(/\d/gi)
     let num = match ? match[0] : undefined
@@ -87,10 +101,12 @@ function cast (model) {
     }
   }
   return {
-    increments,
-    rule,
+    description,
     name,
-    description
+    rule,
+    increments,
+    minutes,
+    seconds
   }
 }
 
@@ -98,21 +114,11 @@ function validate (fields) {
   return gameValidate(fields)
 }
 
-function reducer (state, action) {
-  switch (action.type) {
-    case ADD_INCREMENT:
-      return {
-        ...state,
-        increment: [...state.increment, {}]
-      }
-    case RM_INCREMENT:
-      return {
-        ...state,
-        increment: splice(state.increment, action.payload, 1)
-      }
-  }
-  return state
-}
+const reducer = handleActions({
+  [addIncrement]: (state) => ({...state, increment: [...state.increment, {}]}),
+  [rmIncrement]: (state, payload) => ({...state, increment: splice(state.increment, payload, 1)}),
+  [enableTime]: (state) => ({...state, timer: !state.timer})
+})
 
 export default {
   initialState,

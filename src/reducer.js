@@ -22,8 +22,8 @@ function reducer (state, action) {
         rule: action.payload.rule,
         increments: action.payload.increments,
         id: action.payload.id,
-        teams: {},
-        commands: 0
+        timer: action.payload.seconds + (action.payload.minutes * 60),
+        teams: {}
       }
     case ADD_TEAM:
       return {
