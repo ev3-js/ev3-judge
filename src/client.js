@@ -12,11 +12,15 @@ import multi from 'redux-multi'
 import server from './middleware/server'
 import theme from './theme'
 import firebase from './middleware/firebase'
+import timeout from 'redux-effects-timeout'
+import effects from 'redux-effects'
 
 var app = require('./app').default
 
 const initialState = {
-  url: '/'
+  url: '/',
+  running: false,
+  elapsedTime: 0
 }
 
 /**
@@ -26,7 +30,7 @@ const initialState = {
 const {subscribe, render, replaceReducer} = vdux({
   reducer,
   initialState,
-  middleware: [multi, location(), server(), firebase('https://play-ev3.firebaseio.com/gameTypes')]
+  middleware: [multi, effects, timeout(), location(), server(), firebase('https://play-ev3.firebaseio.com/gameTypes')]
 })
 
 domready(() => {

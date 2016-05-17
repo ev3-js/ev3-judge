@@ -1,11 +1,11 @@
 import element from 'vdux/element'
-import {Block} from 'vdux-ui'
+import {Block, Text} from 'vdux-ui'
 
 function render ({props}) {
   const {timeLeft} = props
   return (
     <Block>
-      {timeLeft}
+      <Text fs='24px' color='white'>{timeLeft}</Text>
     </Block>
   )
 }

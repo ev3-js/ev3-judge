@@ -14,7 +14,10 @@ function render ({props, state, local}) {
     increments = [],
     rule = '{points} / {commands}',
     teams = {},
-    timer
+    timer,
+    timerId,
+    elapsedTime,
+    running
   } = props
   const points = map((team) => {
     return getScore(team.commands, team.points, rule)
@@ -30,7 +33,13 @@ function render ({props, state, local}) {
   )
 
   function getTeams () {
-    var results = [<ControlPanel timer={timer} teams={teams} points={points}/>]
+    var results = [<ControlPanel
+      timer={timer}
+      teams={teams}
+      points={points}
+      timerId={timerId}
+      running={running}
+      elapsedTime={elapsedTime}/>]
     for (var team in teams) {
       results.push(
         <Team

@@ -42,7 +42,15 @@ function render ({props}) {
 
 function getItems (types) {
 	return objReduce((acc, val, key) => {
-		acc.push(<GameCard name={key} rule={val.rule} increments={val.increments} description={val.description}/>)
+		acc.push(
+      <GameCard
+        name={key}
+        seconds={val.seconds}
+        minutes={val.minutes}
+        rule={val.rule}
+        increments={val.increments}
+        description={val.description}/>
+    )
 		return acc
 	}, [], types)
 }

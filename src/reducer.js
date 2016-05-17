@@ -6,7 +6,10 @@ import {
   COMMAND_REGISTERED,
   ADD_TEAM,
   GET_TYPES,
-  ADD_POINTS
+  ADD_POINTS,
+  SET_TIMER_ID,
+  INCREMENT_TIMER,
+  TOGGLE_TIMER
 } from './actions'
 
 function reducer (state, action) {
@@ -16,7 +19,23 @@ function reducer (state, action) {
         ...state,
         url: action.payload
       }
+    case TOGGLE_TIMER:
+      return {
+        ...state,
+        running: !state.running
+      }
+    case SET_TIMER_ID:
+      return {
+        ...state,
+        timerId: action.payload,
+      }
+    case INCREMENT_TIMER:
+      return {
+        ...state,
+        elapsedTime: state.elapsedTime + 1
+      }
     case SUBMIT_FORM:
+      console.log(action.payload)
       return {
         ...state,
         rule: action.payload.rule,
