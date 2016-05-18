@@ -22,8 +22,8 @@ function render ({props}) {
         fixed
         circle
         sq='60px'
-        bottom='20px'
-        right='20px'
+        bottom='30px'
+        right='30px'
         outline='none'
         align='center center'
         color='#333'
@@ -32,8 +32,8 @@ function render ({props}) {
         onClick={() => setUrl('/form')}
         transition='all .3s ease-in-out'
         boxShadow='0 1px 2px 0 rgba(0,0,0,0.2)'
-        hoverProps={{transform: 'rotateZ(180deg)', highlight: true}}
-      >
+        tooltip='Create new game'
+        hoverProps={{highlight: true}}>
         <Icon fs='40px' name='add' color='#fff'/>
       </Button>
     </Block>

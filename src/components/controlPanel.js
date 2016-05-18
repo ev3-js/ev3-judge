@@ -3,48 +3,37 @@ import CountdownTimer from './timer'
 import createAction from '@f/create-action'
 import {bind} from 'redux-effects'
 import {interval, cancelInterval} from 'redux-effects-timeout'
-import {setTimerId, incrementTimer, toggleTimer} from '../actions'
+import {setTimerId, incrementTimer, toggleTimer, resetTimer} from '../actions'
 import {Block, Card, Flex, Text} from 'vdux-ui'
 import {Button} from 'vdux-containers'
-
-const countdown = require('countdown')
 
 function render ({props}) {
   const {points, teams, timer, running, timerId, elapsedTime} = props
   const winnerName = findWinner(teams)
   const winner = teams[winnerName]
   const numTeams = Object.keys(teams).length
-  console.log(timer)
+  const done = timer && timer - elapsedTime === 0
 
   return (
-    <Card transition='background .3s ease-in-out' relative bgColor={winner.color} h='100px' mr='15px' w='400px'>
-      {numTeams > 1 && (
-        <Block>
-          <Block>
-            <Text color='white'>Currently Winning:</Text>
-          </Block>
-          <Block>
-            <Text color='white'>{winnerName}</Text>
-          </Block>
-          <Block>
-            <Text color='white'>{points[winnerName]}</Text>
-          </Block>
-        </Block>
+    <Card column align='flex-start center' transition='background .3s ease-in-out' relative bgColor='white' h='120px' mr='15px' w='400px'>
+      <CountdownTimer wide h={done ? '100%' : '60%'} color='#333' targetTime={timer} timeLeft={timer - elapsedTime} transition='height .3s ease-in-out'/>
+      {!done && (
+        <Flex absolute bottom='0' h='40%' wide>
+          <Button
+            tall
+            wide
+            onClick={handleClick}
+            outline='none'
+            bgColor='white'
+            fs='20px'
+            color='#333'
+            disabled={elapsedTime === timer}
+            focusProps={{}}
+            transition='background .3s ease-in-out'
+            borderRight='2px solid rgba(236, 236, 236, 0.4)'
+            borderTop='2px solid rgba(236, 236, 236, 0.4)'>{running ? 'Stop' : 'Start'}</Button>
+        </Flex>
       )}
-      {timer > 0 && (
-        <CountdownTimer timeLeft={elapsedTime}/>
-      )}
-      <Flex absolute bottom='0' h='40%' wide>
-        <Button
-          tall
-          wide
-          onClick={handleClick}
-          outline='none'
-          bgColor={winner.color}
-          fs='20px'
-          transition='background .3s ease-in-out'
-          borderTop='2px solid rgba(236, 236, 236, 0.4)'>{running ? 'Stop' : 'Start'}</Button>
-      </Flex>
     </Card>
   )
 

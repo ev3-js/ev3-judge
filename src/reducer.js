@@ -9,7 +9,8 @@ import {
   ADD_POINTS,
   SET_TIMER_ID,
   INCREMENT_TIMER,
-  TOGGLE_TIMER
+  TOGGLE_TIMER,
+  RESET_TIMER
 } from './actions'
 
 function reducer (state, action) {
@@ -24,6 +25,11 @@ function reducer (state, action) {
         ...state,
         running: !state.running
       }
+    case RESET_TIMER:
+      return {
+        ...state,
+        elapsedTime: 0
+      }
     case SET_TIMER_ID:
       return {
         ...state,
@@ -35,13 +41,15 @@ function reducer (state, action) {
         elapsedTime: state.elapsedTime + 1
       }
     case SUBMIT_FORM:
-      console.log(action.payload)
+      let {rule, increments, id, seconds, minutes} = action.payload
       return {
         ...state,
-        rule: action.payload.rule,
-        increments: action.payload.increments,
-        id: action.payload.id,
-        timer: action.payload.seconds + (action.payload.minutes * 60),
+        rule,
+        increments,
+        id,
+        running: false,
+        timer: seconds + (minutes * 60) || null,
+        elapsedTime: 0,
         teams: {}
       }
     case ADD_TEAM:

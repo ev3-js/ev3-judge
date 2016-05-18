@@ -60,7 +60,7 @@
     "string-template": "^1.0.0",
     "type": "0.0.3",
     "vdux": "^2.4.5",
-    "vdux-containers": "^1.1.2",
+    "vdux-containers": "^1.1.6",
     "vdux-form": "^1.0.6",
     "vdux-ui": "^1.2.0"
   },

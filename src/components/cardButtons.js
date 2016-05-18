@@ -17,10 +17,11 @@ function render ({props}) {
                 tall
                 fs='18px'
                 bgColor='white'
-                color='darkgrey'
+                color='#666'
                 weight='600'
                 borderRight={i < increments.length - 1 ? '1px solid #e5e5e5' : '0'}
                 outline='none'
+                focusProps={{}}
                 transition='background .3s ease-in-out'
                 textTransform='uppercase'
                 onClick={onClick({description: inc.name, points: inc.points})}>

@@ -68,11 +68,12 @@ function render ({state, local, props}) {
               fs='1em'
               w='100%'
               padding='10px'
+              focusProps={{}}
               mb='8px'
               onClick={local(addIncrement)}>
               Add points category
             </Button>
-            <Input hoverProps={{bgColor: '#d5d5d5'}} type='submit'/>
+            <Input focusProps={{}} hoverProps={{bgColor: '#d5d5d5'}} type='submit'/>
           </Block>
         </Flex>
       </Card>

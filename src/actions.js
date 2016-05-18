@@ -14,9 +14,11 @@ const ADD_POINTS = 'ADD_POINTS'
 const INCREMENT_TIMER = 'INCREMENT_TIMER'
 const SET_TIMER_ID = 'SET_TIMER_ID'
 const TOGGLE_TIMER = 'TOGGLE_TIMER'
+const RESET_TIMER = 'RESET_TIMER'
 const incrementTimer = createAction(INCREMENT_TIMER)
 const setTimerId = createAction(SET_TIMER_ID)
 const toggleTimer = createAction(TOGGLE_TIMER)
+const resetTimer = createAction(RESET_TIMER)
 
 function initializeApp () {
   return bindUrl(urlChange)
@@ -92,6 +94,7 @@ export {
   INCREMENT_TIMER,
   SET_TIMER_ID,
   TOGGLE_TIMER,
+  RESET_TIMER,
   submitForm,
   createGame,
   initializeApp,
@@ -101,5 +104,6 @@ export {
   addPoints,
   incrementTimer,
   setTimerId,
-  toggleTimer
+  toggleTimer,
+  resetTimer
 }

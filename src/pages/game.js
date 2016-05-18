@@ -6,7 +6,7 @@ import NoTeams from '../components/noTeams'
 import map from '@f/map'
 import getScore from '../utils/getScore'
 import ControlPanel from '../components/controlPanel'
-import {Button, Card, Flex, Grid} from 'vdux-ui'
+import {Card, Flex, Grid} from 'vdux-ui'
 
 function render ({props, state, local}) {
   const {
