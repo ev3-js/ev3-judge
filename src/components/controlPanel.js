@@ -9,8 +9,6 @@ import {Button} from 'vdux-containers'
 
 function render ({props}) {
   const {points, teams, timer, running, timerId, elapsedTime} = props
-  const winnerName = findWinner(teams)
-  const winner = teams[winnerName]
   const numTeams = Object.keys(teams).length
   const done = timer && timer - elapsedTime === 0
 
@@ -46,10 +44,6 @@ function render ({props}) {
   }
 }
 
-function findWinner (points) {
-  let sorted = Object.keys(points).sort(function (a,b) { return points[a]-points[b] })
-  return sorted[0]
-}
 
 export default {
   render
