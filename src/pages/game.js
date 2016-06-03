@@ -4,56 +4,69 @@ import element from 'vdux/element'
 import Team from '../components/team'
 import NoTeams from '../components/noTeams'
 import map from '@f/map'
+import reduce from '@f/reduce'
 import getScore from '../utils/getScore'
+import firebase from 'vdux-fire'
 import ControlPanel from '../components/controlPanel'
 import {Card, Flex, Grid} from 'vdux-ui'
 
 function render ({props, state, local}) {
-  const {
-    id,
-    increments = [],
-    rule = '{points} / {commands}',
-    teams = {},
-    timer,
-    timerId,
-    elapsedTime,
-    running
-  } = props
+  const {game, id} = props
+  const {value, loading} = game
+  var items
+  var teams = {}
+
+  if (!loading) {
+    var {
+      increments = [],
+      rule = '{points} / {commands}',
+      teams = {},
+      timer,
+      timerId,
+      elapsedTime,
+      running
+    } = value
+  }
+
   const points = map((team) => {
     return getScore(team.commands, team.points, rule)
   }, teams)
-  const items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
+
+  items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
 
   return (
     <Flex h='80vh' column align='space-between'>
       <Flex h='100%'>
-        {items}
+        {Object.keys(teams).length > 0 && <ControlPanel
+          teams={teams}
+          points={points}
+          timerId={timerId}
+          running={running}
+          gameId={id}
+          elapsedTime={elapsedTime}/>}
+        {items ? items : '...loading'}
       </Flex>
     </Flex>
   )
 
   function getTeams () {
-    var results = [<ControlPanel
-      timer={timer}
-      teams={teams}
-      points={points}
-      timerId={timerId}
-      running={running}
-      elapsedTime={elapsedTime}/>]
-    for (var team in teams) {
-      results.push(
+    return reduce((arr, team) => {
+      arr.push(
         <Team
-          name={team}
-          color={teams[team].color}
-          commands={teams[team].commands}
+          name={team.name}
+          color={team.color}
+          commands={team.commands}
           increments={increments}
-          points={points[team]} />
+          points={points[team.name]}
+          gameId={id} />
       )
-    }
-    return results
+      return arr
+    }, [], teams)
   }
 }
 
-export default {
+export default firebase(props => ({
+  game: `games/${props.id}`
+}))({
   render
-}
+})

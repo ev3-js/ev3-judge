@@ -44,13 +44,11 @@ function form (params, props) {
 }
 
 function game (params, props) {
-  if (props.rule) {
-    return (
-      <Centered>
-        <Game {...props}/>
-      </Centered>
-    )
-  }
+  return (
+    <Centered>
+      <Game {...props} id={params.id}/>
+    </Centered>
+  )
 }
 
 /**

@@ -1,8 +1,9 @@
 /** @jsx element */
-
 import element from 'vdux/element'
 import GameCard from '../components/gameCard'
 import objReduce from '@f/reduce-obj'
+import firebase from 'vdux-fire'
+import summon from 'vdux-summon'
 import {Button, Block, Card, Icon, Grid} from 'vdux-containers'
 import {setUrl} from 'redux-effects-location'
 import {initializeApp} from '../actions'
@@ -13,10 +14,11 @@ function onCreate () {
 
 function render ({props}) {
   const {gameTypes} = props
+  const {value, loading} = gameTypes
   return (
     <Block>
       <Grid columnAlign='start start' itemsPerRow={3}>
-        {gameTypes ? getItems(gameTypes) : '...loading'}
+        {!loading ? getItems(value) : '...loading'}
       </Grid>
       <Button
         fixed
@@ -55,7 +57,9 @@ function getItems (types) {
 	}, [], types)
 }
 
-export default {
+export default firebase(props => ({
+  gameTypes: `gameTypes`
+}))({
   render,
   onCreate
-}
+})

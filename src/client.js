@@ -5,15 +5,14 @@
 import domready from '@f/domready'
 import vdux from 'vdux/dom'
 import reducer from './reducer'
-import * as jss from 'jss-simple'
 import logger from 'redux-logger'
 import location from 'redux-effects-location'
-import multi from 'redux-multi'
 import server from './middleware/server'
 import theme from './theme'
-import firebase from './middleware/firebase'
 import timeout from 'redux-effects-timeout'
 import effects from 'redux-effects'
+import flow from 'redux-flo'
+import * as fire from 'vdux-fire'
 
 var app = require('./app').default
 
@@ -23,6 +22,12 @@ const initialState = {
   elapsedTime: 0
 }
 
+const config = {
+  apiKey: "AIzaSyA1Ib5i5HZPCxnKp4ITiUoy5VEKaLMdsDY",
+  authDomain: "play-ev3.firebaseapp.com",
+  databaseURL: "https://play-ev3.firebaseio.com",
+  storageBucket: "play-ev3.appspot.com",
+}
 /**
  * App
  */
@@ -30,12 +35,18 @@ const initialState = {
 const {subscribe, render, replaceReducer} = vdux({
   reducer,
   initialState,
-  middleware: [multi, effects, timeout(), location(), server(), firebase('https://play-ev3.firebaseio.com/gameTypes')]
+  middleware: [
+    flow(),
+    effects,
+    timeout(),
+    location(),
+    server(),
+    fire.middleware(config)
+  ]
 })
 
 domready(() => {
   subscribe(state => {
-    jss.attach()
     render(app(state), {uiTheme: theme})
   })
 })

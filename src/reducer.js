@@ -6,7 +6,6 @@ import {
   COMMAND_REGISTERED,
   ADD_TEAM,
   GET_TYPES,
-  ADD_POINTS,
   SET_TIMER_ID,
   INCREMENT_TIMER,
   TOGGLE_TIMER,
@@ -57,18 +56,15 @@ function reducer (state, action) {
         ...state,
         teams: setProp(action.payload.name, state.teams, {color: action.payload.color, points: 0})
       }
-    case ADD_POINTS:
-      return {
-        ...state,
-        teams: setProp(action.payload.team, state.teams, {
-          ...state.teams[action.payload.team],
-          points: state.teams[action.payload.team].points + action.payload.points
-        })
-      }
     case GET_TYPES:
       return {
         ...state,
         gameTypes: action.payload
+      }
+    case 'SET_ID':
+      return {
+        ...state,
+        id: action.payload
       }
     case COMMAND_REGISTERED:
       return {

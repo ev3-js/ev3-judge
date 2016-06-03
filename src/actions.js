@@ -1,7 +1,7 @@
 import Hashids from 'hashids'
 import {bindUrl, setUrl} from 'redux-effects-location'
 import createAction from '@f/create-action'
-import {firebaseSet} from './middleware/firebase'
+import {firebaseSet} from 'vdux-fire'
 
 const hashids = new Hashids('the saltiest ocean', 4)
 const URL_DID_CHANGE = 'URL_DID_CHANGE'
@@ -10,7 +10,6 @@ const COMMAND_REGISTERED = 'COMMAND_REGISTERED'
 const ADD_TEAM = 'ADD_TEAM'
 const GET_TYPES = 'GET_TYPES'
 const FIREBASE_SET = 'FIREBASE_SET'
-const ADD_POINTS = 'ADD_POINTS'
 const INCREMENT_TIMER = 'INCREMENT_TIMER'
 const SET_TIMER_ID = 'SET_TIMER_ID'
 const TOGGLE_TIMER = 'TOGGLE_TIMER'
@@ -26,7 +25,7 @@ function initializeApp () {
 
 function submitForm (rules) {
   return [
-    firebaseSet(rules),
+    firebaseSet({ref: `gameTypes/${rules.name}`, value: rules}),
     setUrl('/')
   ]
 }
@@ -35,18 +34,9 @@ function createGame (rules) {
   const id = hashids.encode(Math.floor(Math.random() * 1000) + 1)
   return [
     setUrl(`/game/${id}`),
-    {type: SUBMIT_FORM, payload: {...rules, id}}
+    firebaseSet({ref: `games/${id}`, value: {id, ...rules}}),
+    {type: 'SET_ID', payload: id}
   ]
-}
-
-function addPoints (team, {points}) {
-  return {
-    type: ADD_POINTS,
-    payload: {
-      team,
-      points
-    }
-  }
 }
 
 function urlChange (url) {
@@ -90,7 +80,6 @@ export {
   ADD_TEAM,
   GET_TYPES,
   FIREBASE_SET,
-  ADD_POINTS,
   INCREMENT_TIMER,
   SET_TIMER_ID,
   TOGGLE_TIMER,
@@ -101,7 +90,6 @@ export {
   registerCommand,
   addTeam,
   getGameTypes,
-  addPoints,
   incrementTimer,
   setTimerId,
   toggleTimer,

@@ -3,7 +3,7 @@ import element from 'vdux/element'
 import PointsBox from './pointsBox'
 import CardButtons from './cardButtons'
 import Log from './log'
-import {addPoints} from '../actions'
+import {firebaseSet} from 'vdux-fire'
 import {Card, Text} from 'vdux-ui'
 
 const ADD_MESSAGE = 'ADD_MESSAGE'
@@ -15,7 +15,7 @@ function initialState () {
 }
 
 function render ({props, local, state}) {
-  const {rule, commands, increments, name, color, points} = props
+  const {rule, commands, increments, name, color, points, gameId} = props
   const {messages} = state
 
   return (
@@ -29,7 +29,7 @@ function render ({props, local, state}) {
 
   function addMessage (p) {
     return [
-      () => addPoints(name, p),
+      () => firebaseSet({value: Number(points) + p.points, ref: `games/${gameId}/teams/${name}/points`}),
       local(() => {
         return {
           type: ADD_MESSAGE,
