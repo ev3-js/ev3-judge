@@ -19,8 +19,8 @@ function render ({props}) {
   const color = palette[Math.floor(Math.random() * palette.length)]
   return (
     <Card
-      bgColor={color}
       hoverProps={{highlight: true}}
+      bgColor={color}
       cursor='pointer'
       onClick={() => createGame({name, rule, description, increments, seconds, minutes})}
       m='15px'

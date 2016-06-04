@@ -19,25 +19,11 @@ function reducer (state, action) {
         ...state,
         url: action.payload
       }
-    case TOGGLE_TIMER:
-      return {
-        ...state,
-        running: !state.running
-      }
-    case RESET_TIMER:
-      return {
-        ...state,
-        elapsedTime: 0
-      }
     case SET_TIMER_ID:
+      console.log(action.payload)
       return {
         ...state,
         timerId: action.payload,
-      }
-    case INCREMENT_TIMER:
-      return {
-        ...state,
-        elapsedTime: state.elapsedTime + 1
       }
     case SUBMIT_FORM:
       let {rule, increments, id, seconds, minutes} = action.payload
@@ -47,7 +33,6 @@ function reducer (state, action) {
         increments,
         id,
         running: false,
-        timer: seconds + (minutes * 60) || null,
         elapsedTime: 0,
         teams: {}
       }

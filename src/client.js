@@ -12,6 +12,7 @@ import theme from './theme'
 import timeout from 'redux-effects-timeout'
 import effects from 'redux-effects'
 import flow from 'redux-flo'
+import timer from './middleware/timer'
 import * as fire from 'vdux-fire'
 
 var app = require('./app').default
@@ -40,6 +41,7 @@ const {subscribe, render, replaceReducer} = vdux({
     effects,
     timeout(),
     location(),
+    timer(),
     server(),
     fire.middleware(config)
   ]
