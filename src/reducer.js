@@ -9,7 +9,8 @@ import {
   SET_TIMER_ID,
   INCREMENT_TIMER,
   TOGGLE_TIMER,
-  RESET_TIMER
+  RESET_TIMER,
+  SET_ID
 } from './actions'
 
 function reducer (state, action) {
@@ -46,7 +47,7 @@ function reducer (state, action) {
         ...state,
         gameTypes: action.payload
       }
-    case 'SET_ID':
+    case SET_ID:
       return {
         ...state,
         id: action.payload

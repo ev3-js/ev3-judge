@@ -47,8 +47,7 @@ function getItems (types) {
 		acc.push(
       <GameCard
         name={key}
-        seconds={val.seconds}
-        minutes={val.minutes}
+        timer={val.timer}
         rule={val.rule}
         increments={val.increments}
         description={val.description}/>

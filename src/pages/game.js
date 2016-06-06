@@ -23,9 +23,9 @@ function render ({props, state, local}) {
       teams = {},
       elapsedTime,
       running,
-      minutes,
-      seconds
+      timer
     } = value
+    var {minutes, seconds} = timer
   }
 
   const timeLeft = seconds + (minutes * 60)

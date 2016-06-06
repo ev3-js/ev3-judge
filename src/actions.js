@@ -6,17 +6,10 @@ import {firebaseSet} from 'vdux-fire'
 const hashids = new Hashids('the saltiest ocean', 4)
 const URL_DID_CHANGE = 'URL_DID_CHANGE'
 const SUBMIT_FORM = 'SUBMIT_FORM'
-const COMMAND_REGISTERED = 'COMMAND_REGISTERED'
-const ADD_TEAM = 'ADD_TEAM'
-const GET_TYPES = 'GET_TYPES'
-const FIREBASE_SET = 'FIREBASE_SET'
-const INCREMENT_TIMER = 'INCREMENT_TIMER'
 const SET_TIMER_ID = 'SET_TIMER_ID'
-const TOGGLE_TIMER = 'TOGGLE_TIMER'
 const RESET_TIMER = 'RESET_TIMER'
-const incrementTimer = createAction(INCREMENT_TIMER)
+const SET_ID = 'SET_ID'
 const setTimerId = createAction(SET_TIMER_ID)
-const toggleTimer = createAction(TOGGLE_TIMER)
 const resetTimer = createAction(RESET_TIMER)
 
 function initializeApp () {
@@ -34,8 +27,8 @@ function createGame (rules) {
   const id = hashids.encode(Math.floor(Math.random() * 1000) + 1)
   return [
     setUrl(`/game/${id}`),
-    firebaseSet({ref: `games/${id}`, value: {id, ...rules}}),
-    {type: 'SET_ID', payload: id}
+    {type: 'SET_ID', payload: id},
+    firebaseSet({ref: `games/${id}`, value: {id, ...rules}})
   ]
 }
 
@@ -46,52 +39,15 @@ function urlChange (url) {
   }
 }
 
-function registerCommand (num, name) {
-  return {
-    type: COMMAND_REGISTERED,
-    payload: {
-      num,
-      name
-    }
-  }
-}
-
-function getGameTypes (data) {
-  return {
-    type: GET_TYPES,
-    payload: data
-  }
-}
-
-function addTeam (name, color) {
-  return {
-    type: ADD_TEAM,
-    payload: {
-      name,
-      color
-    }
-  }
-}
-
 export {
   URL_DID_CHANGE,
   SUBMIT_FORM,
-  COMMAND_REGISTERED,
-  ADD_TEAM,
-  GET_TYPES,
-  FIREBASE_SET,
-  INCREMENT_TIMER,
   SET_TIMER_ID,
-  TOGGLE_TIMER,
   RESET_TIMER,
+  SET_ID,
   submitForm,
   createGame,
   initializeApp,
-  registerCommand,
-  addTeam,
-  getGameTypes,
-  incrementTimer,
   setTimerId,
-  toggleTimer,
   resetTimer
 }

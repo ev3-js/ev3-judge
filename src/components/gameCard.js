@@ -15,14 +15,14 @@ const palette = [
 ]
 
 function render ({props}) {
-  const {name, description, increments, rule, seconds, minutes} = props
+  const {name, description, increments, rule, seconds, minutes, timer} = props
   const color = palette[Math.floor(Math.random() * palette.length)]
   return (
     <Card
       hoverProps={{highlight: true}}
       bgColor={color}
       cursor='pointer'
-      onClick={() => createGame({name, rule, description, increments, seconds, minutes})}
+      onClick={() => createGame({name, rule, description, increments, timer})}
       m='15px'
       w='30vw'
       h='500px'

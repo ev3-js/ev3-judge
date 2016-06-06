@@ -40,10 +40,10 @@ const {subscribe, render, replaceReducer} = vdux({
     flow(),
     effects,
     timeout(),
+    fire.middleware(config),
     location(),
     timer(),
-    server(),
-    fire.middleware(config)
+    server()
   ]
 })
 

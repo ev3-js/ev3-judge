@@ -106,8 +106,10 @@ function cast (model) {
     name,
     rule,
     increments,
-    minutes,
-    seconds
+    timer: {
+      minutes,
+      seconds
+    }
   }
 }
 
