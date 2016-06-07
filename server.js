@@ -27,6 +27,6 @@ app.get('*', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
 })
 
-http.listen(process.env.PORT || 5000, (port) => {
-  console.log(`Server listening on port 5000`)
+http.listen(process.env.PORT || 3000, (port) => {
+  console.log(`Server listening on port 3000`)
 })

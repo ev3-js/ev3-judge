@@ -9,8 +9,10 @@ const SUBMIT_FORM = 'SUBMIT_FORM'
 const SET_TIMER_ID = 'SET_TIMER_ID'
 const RESET_TIMER = 'RESET_TIMER'
 const SET_ID = 'SET_ID'
+const SET_UID = 'SET_UID'
 const setTimerId = createAction(SET_TIMER_ID)
 const resetTimer = createAction(RESET_TIMER)
+const setUserId = createAction(SET_UID)
 
 function initializeApp () {
   return bindUrl(urlChange)
@@ -23,12 +25,12 @@ function submitForm (rules) {
   ]
 }
 
-function createGame (rules) {
+function createGame (rules, uid) {
   const id = hashids.encode(Math.floor(Math.random() * 1000) + 1)
   return [
     setUrl(`/game/${id}`),
     {type: 'SET_ID', payload: id},
-    firebaseSet({ref: `games/${id}`, value: {id, ...rules}})
+    firebaseSet({ref: `games/${id}`, value: {id, creatorId: uid, ...rules}})
   ]
 }
 
@@ -45,9 +47,11 @@ export {
   SET_TIMER_ID,
   RESET_TIMER,
   SET_ID,
+  SET_UID,
   submitForm,
   createGame,
   initializeApp,
   setTimerId,
-  resetTimer
+  resetTimer,
+  setUserId
 }

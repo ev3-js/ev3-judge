@@ -101,6 +101,7 @@ function cast (model) {
       increments[num][word] = isNaN(model[field]) ? model[field] : Number(model[field])
     }
   }
+
   return {
     description,
     name,

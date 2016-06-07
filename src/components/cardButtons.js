@@ -4,12 +4,12 @@ import {Block, Box, Flex} from 'vdux-ui'
 import {Button} from 'vdux-containers'
 
 function render ({props}) {
-  let {increments, onClick} = props
+  let {increments, onClick, mine} = props
 
   return (
     <Block h='10%' borderBottom='1px solid #e5e5e5'>
       <Flex tall flex='1' align='center center'>
-        {increments.map((inc, i) => {
+        {mine && increments.map((inc, i) => {
           return (
             <Box tall wide>
               <Button
@@ -24,6 +24,7 @@ function render ({props}) {
                 focusProps={{}}
                 transition='background .3s ease-in-out'
                 textTransform='uppercase'
+                disabled={!mine}
                 onClick={onClick({description: inc.name, points: inc.points})}>
                 {inc.name}
               </Button>

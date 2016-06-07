@@ -20,7 +20,7 @@ function render ({props}) {
             <Text fs='16px' weight='600'>sec</Text>
           </Flex>
         )}
-        {targetTime && timeUnits.minutes === 0 && timeUnits.seconds === 0 && (
+        {targetTime > 0 && timeUnits.minutes === 0 && timeUnits.seconds === 0 && (
           <Text fs='48px' weight='300'>Game Over</Text>
         )}
       </Flex>

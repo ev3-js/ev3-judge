@@ -11,7 +11,7 @@ import ControlPanel from '../components/controlPanel'
 import {Card, Flex, Grid} from 'vdux-ui'
 
 function render ({props, state, local}) {
-  const {game, id, timerId} = props
+  const {game, id, timerId, uid} = props
   const {value, loading} = game
   var items
   var teams = {}
@@ -23,18 +23,20 @@ function render ({props, state, local}) {
       teams = {},
       elapsedTime,
       running,
-      timer
+      timer,
+      creatorId
     } = value
     var {minutes, seconds} = timer
+    var mine = uid === creatorId
   }
 
   const timeLeft = seconds + (minutes * 60)
-
   const points = map((team) => {
     return getScore(team.commands, team.points, rule)
   }, teams)
 
   items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
+  console.log('game', uid)
 
   return (
     <Flex h='80vh' column align='space-between'>
@@ -46,6 +48,7 @@ function render ({props, state, local}) {
           running={running}
           gameId={id}
           timeLeft={timeLeft}
+          mine={mine}
           elapsedTime={elapsedTime}/>}
         {items ? items : '...loading'}
       </Flex>
@@ -59,6 +62,7 @@ function render ({props, state, local}) {
           name={team.name}
           color={team.color}
           commands={team.commands}
+          mine={mine}
           increments={increments}
           points={points[team.name]}
           gameId={id} />

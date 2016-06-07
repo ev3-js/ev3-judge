@@ -1,18 +1,20 @@
 import CountdownTimer from './timer'
 import createAction from '@f/create-action'
 import element from 'vdux/element'
+import reduce from '@f/reduce'
 
 import {setTimerId, incrementTimer, toggleTimer, resetTimer} from '../actions'
 import {interval, cancelInterval} from 'redux-effects-timeout'
-import {Block, Card, Flex, Text} from 'vdux-ui'
+import {Block, Card, Flex, Text, Menu, MenuItem} from 'vdux-ui'
 import {firebaseSet} from 'vdux-fire'
 import {Button} from 'vdux-containers'
 import {bind} from 'redux-effects'
 
 function render ({props}) {
-  const {points, teams, timeLeft, running, timerId, elapsedTime = 0, gameId} = props
+  const {points, teams, timeLeft, running, timerId, elapsedTime = 0, gameId, mine} = props
   const numTeams = Object.keys(teams).length
   const done = timeLeft && timeLeft - elapsedTime === 0
+  console.log(teams)
 
   return (
     <Card column align='flex-start center' transition='background .3s ease-in-out' relative bgColor='white' mr='15px' w='400px'>
@@ -23,7 +25,7 @@ function render ({props}) {
         targetTime={timeLeft}
         timeLeft={(timeLeft || 0) - elapsedTime}
         transition='height .3s ease-in-out'/>
-      {!done && (
+      {mine && !done && (
         <Flex absolute bottom='0' h='40%' wide>
           <Button
             tall
@@ -33,12 +35,18 @@ function render ({props}) {
             bgColor='white'
             fs='20px'
             color='#333'
-            disabled={elapsedTime === timeLeft}
+            disabled={timeLeft && elapsedTime === timeLeft}
             transition='background .3s ease-in-out'
             borderRight='2px solid rgba(236, 236, 236, 0.4)'
             borderTop='2px solid rgba(236, 236, 236, 0.4)'>{running ? 'Stop' : 'Start'}</Button>
         </Flex>
       )}
+      <Menu>
+        {teams && reduce((arr, team) => {
+          arr.push(<MenuItem>{team.name}</MenuItem>)
+          return arr
+        }, [], teams)}
+      </Menu>
     </Card>
   )
 

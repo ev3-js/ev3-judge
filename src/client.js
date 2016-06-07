@@ -7,12 +7,12 @@ import vdux from 'vdux/dom'
 import reducer from './reducer'
 import logger from 'redux-logger'
 import location from 'redux-effects-location'
-import server from './middleware/server'
 import theme from './theme'
 import timeout from 'redux-effects-timeout'
 import effects from 'redux-effects'
 import flow from 'redux-flo'
 import timer from './middleware/timer'
+import auth from './middleware/auth'
 import * as fire from 'vdux-fire'
 
 var app = require('./app').default
@@ -20,7 +20,8 @@ var app = require('./app').default
 const initialState = {
   url: '/',
   running: false,
-  elapsedTime: 0
+  elapsedTime: 0,
+  uid: ''
 }
 
 const config = {
@@ -41,9 +42,9 @@ const {subscribe, render, replaceReducer} = vdux({
     effects,
     timeout(),
     fire.middleware(config),
+    auth,
     location(),
-    timer(),
-    server()
+    timer()
   ]
 })
 
