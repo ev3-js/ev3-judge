@@ -1,7 +1,10 @@
 import firebase from 'firebase'
 
+let subscription
+
 export default ({dispatch, getState}) => (next) => (action) => {
   if (action.type === 'SET_ID') {
+    console.log(subscription)
     firebase.database().ref(`/games/${action.payload}`).once('value', (snap) => {
       let {deviceGame, increments, deviceName} = snap.val()
       firebase.database().ref(`/games/${action.payload}/teams`).once('child_added', (team) => {
@@ -10,7 +13,7 @@ export default ({dispatch, getState}) => (next) => (action) => {
           obj[inc.name] = {points: inc.points, description: inc.description}
           return obj
         }, {})
-        runGame({device: `devices/${deviceName}`, game: `games/${action.payload}`, team: team.key, points: gamePoints})
+        subscription = runGame({device: `devices/${deviceName}`, game: `games/${action.payload}`, team: team.key, points: gamePoints})
       })
     })
   }

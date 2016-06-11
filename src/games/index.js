@@ -2,8 +2,8 @@ import lightGame, {deactivateLight, source, set} from 'light-game'
 import firebase from 'firebase'
 
 function blackout ({device, game, team, points}) {
-  var {runner, getActive} = lightGame(device, {active: [1, 2]})
-  source.subscribe(function (port) {
+  const {runner, getActive} = lightGame(device, {active: [1, 2]})
+  const subscription = source.subscribe(function (port) {
     port = Number(port)
     runner(function * () {
       yield deactivateLight(getActive(), port)
@@ -22,6 +22,8 @@ function blackout ({device, game, team, points}) {
     }})
     yield set({method: 'push', ref: `${game}/teams/${team}/messages`, value: {points: points.points, description: points.description}})
   }
+
+  return subscription
 }
 
 export {
