@@ -4,25 +4,31 @@ import handleActions from '@f/handle-actions'
 import createAction from '@f/create-action'
 import splice from '@f/splice'
 import gameValidate from '../utils/gameValidator'
+import * as games from '../games/index'
 
 import Form from 'vdux-form'
 import TextFields from '../components/textFields'
 import Toggle from '../components/toggleLogic'
-import {Button, Input} from 'vdux-containers'
-import {Card, Flex, Block} from 'vdux-ui'
+import {Button, Input, Dropdown, MenuItem} from 'vdux-containers'
+import {Card, Flex, Block, Icon} from 'vdux-ui'
 
 import {submitForm} from '../actions'
 
 const ADD_INCREMENT = 'ADD_INCREMENT'
 const RM_INCREMENT = 'RM_INCREMENT'
-const ENABLE_TIME = 'ENABLE_TIME'
-const enableTime = createAction(ENABLE_TIME)
+const TOGGLE_TIME = 'TOGGLE_TIME'
+const TOGGLE_DEVICE = 'TOGGLE_DEVICE'
+const toggleTime = createAction(TOGGLE_TIME)
 const rmIncrement = createAction(RM_INCREMENT)
 const addIncrement = createAction(ADD_INCREMENT)
+const toggleDevice = createAction(TOGGLE_DEVICE)
+const setDevice = createAction('SET_DEVICE')
 
 function initialState () {
   return {
     timer: false,
+    device: false,
+    deviceType: '',
     increment: [{
       description: '',
       points: ''
@@ -31,7 +37,8 @@ function initialState () {
 }
 
 function render ({state, local, props}) {
-  const {increment, timer} = state
+  const {increment, timer, device, deviceType} = state
+  console.log(state)
   return (
     <Form cast={cast} validate={validate} onSubmit={submitForm}>
       <Card p='20px'>
@@ -40,13 +47,42 @@ function render ({state, local, props}) {
             <Input name='name' placeholder='name'/>
             <Input wide name='rule' placeholder='points expression'/>
             <Input name='description' placeholder='description'/>
-            <Flex relative align='flex-start center'>
-              <Block w='25%'>
-                <Toggle w='100px' mb='0' weight='300' onClick={local(enableTime)} name='timerToggle' label='Timer'/>
+          </TextFields>
+          <TextFields title='Options'>
+            <Block relative mb='20px'>
+              <Block w='25%' mb='5px'>
+                <Toggle w='100px' mb='0' weight='300' onClick={local(toggleTime)} name='timerToggle' label='Timer'/>
               </Block>
-              <Input w='60px' mb='0' ml='20px' disabled={!timer} placeholder='min' name='minutes'/>
-              <Input w='60px' mb='0' ml='5px' disabled={!timer} placeholder='sec' name='seconds'/>
-            </Flex>
+              <Flex>
+                <Input w='213px' mb='0' disabled={!timer} placeholder='min' name='minutes'/>
+                <Input w='213px' mb='0' ml='10px' disabled={!timer} placeholder='sec' name='seconds'/>
+              </Flex>
+            </Block>
+            <Block mt='5px' relative>
+              <Block w='25%' mb='10px'>
+                <Toggle w='100px' mb='0' weight='300' onClick={local(toggleDevice)} name='deviceToggle' label='Device'/>
+              </Block>
+              <Block display='inline-block' w='213px'>
+                <Dropdown wide btn={(
+                  <Button
+                    wide
+                    bgColor='grey'
+                    align='center center'
+                    transition='opacity .3s ease-in-out'
+                    disabled={!device}
+                    fs='inherit'
+                    p='9px'>
+                    {deviceType || 'Select a game'}
+                    <Icon name='keyboard_arrow_down'/>
+                  </Button>)}>
+                  {Object.keys(games).map((game) => <MenuItem onClick={local(() => setDevice(game))}>{game}</MenuItem>)}
+                </Dropdown>
+              </Block>
+              <Block w='213px' display='inline-block'>
+                <Input display='none' value={deviceType} name='deviceGame'/>
+                <Input wide mb='0' ml='10px' disabled={!device} placeholder='device name' name='deviceName'/>
+              </Block>
+            </Block>
           </TextFields>
           {increment.map((inc, i) => {
             const id = i + 1
@@ -86,7 +122,7 @@ function render ({state, local, props}) {
 }
 
 function cast (model) {
-  let {rule, name, description, minutes, seconds} = model
+  let {rule, name, description, minutes, seconds, deviceGame, deviceName} = model
   let increments = []
   minutes = Number(minutes) || 0
   seconds = Number(seconds) || 0
@@ -107,6 +143,8 @@ function cast (model) {
     name,
     rule,
     increments,
+    deviceName,
+    deviceGame,
     timer: {
       minutes,
       seconds
@@ -121,7 +159,9 @@ function validate (fields) {
 const reducer = handleActions({
   [addIncrement]: (state) => ({...state, increment: [...state.increment, {}]}),
   [rmIncrement]: (state, payload) => ({...state, increment: splice(state.increment, payload, 1)}),
-  [enableTime]: (state) => ({...state, timer: !state.timer})
+  [toggleTime]: (state) => ({...state, timer: !state.timer}),
+  [toggleDevice]: (state) => ({...state, device: !state.device}),
+  [setDevice]: (state, payload) => ({...state, deviceType: payload})
 })
 
 export default {

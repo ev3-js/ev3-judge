@@ -19,11 +19,15 @@ input {
   position: relative;
   width: 100%;
   opacity: 1;
-  transition: opacity .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 input:disabled {
   opacity: 0.4;
 }
 input[type='submit'] {
   cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+button:disabled {
+  opacity: 0.4;
 }

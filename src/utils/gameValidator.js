@@ -15,7 +15,7 @@ const description = Schema('string')
 const number = Schema('number')
 
 const incrementor = Schema()
-	.prop('name', name)
+	.prop('name', [name, number])
 	.prop('description', description)
 	.prop('points', number)
 	.required(['name', 'description', 'points'])

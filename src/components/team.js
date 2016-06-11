@@ -23,7 +23,7 @@ function render ({props, local, state}) {
       <Text absolute m='8px' fs='25px' color='white'>{name}</Text>
       <PointsBox color={color} rule={rule} points={Number(points)} commands={Number(commands)}/>
       {mine && <CardButtons mine={mine} onClick={(p) => addMessage(p)} increments={increments}/>}
-      <Log messages={messages}/>
+      <Log gameId={gameId} team={name}/>
     </Card>
   )
 
@@ -46,7 +46,7 @@ function reducer (state, action) {
       const {points, description} = action.payload
       return {
         ...state,
-        messages: [...state.messages, {description, points}]
+        messages: [{description, points}, ...state.messages]
       }
   }
 }
