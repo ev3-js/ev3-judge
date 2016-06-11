@@ -1,6 +1,7 @@
 /** @jsx element */
 import element from 'vdux/element'
 import GameCard from '../components/gameCard'
+import Tabs from '../components/Tabs'
 import objReduce from '@f/reduce-obj'
 import fire from 'vdux-fire'
 import firebase from 'firebase'
@@ -46,11 +47,8 @@ function render ({props}) {
   		acc.push(
         <GameCard
           name={key}
-          timer={val.timer}
-          rule={val.rule}
           uid={uid}
-          increments={val.increments}
-          description={val.description}/>
+          {...val}/>
       )
   		return acc
   	}, [], types)

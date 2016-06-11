@@ -1,20 +1,19 @@
+/** @jsx element */
+
 import CountdownTimer from './timer'
-import createAction from '@f/create-action'
 import element from 'vdux/element'
 import reduce from '@f/reduce'
 
-import {setTimerId, incrementTimer, toggleTimer, resetTimer} from '../actions'
+import {setTimerId} from '../actions'
 import {interval, cancelInterval} from 'redux-effects-timeout'
-import {Block, Card, Flex, Text, Menu, MenuItem} from 'vdux-ui'
+import {Card, Flex, Menu, MenuItem} from 'vdux-ui'
 import {firebaseSet} from 'vdux-fire'
 import {Button} from 'vdux-containers'
 import {bind} from 'redux-effects'
 
 function render ({props}) {
-  const {points, teams, timeLeft, running, timerId, elapsedTime = 0, gameId, mine} = props
-  const numTeams = Object.keys(teams).length
+  const {teams, timeLeft, running, timerId, elapsedTime = 0, gameId, mine} = props
   const done = timeLeft && timeLeft - elapsedTime === 0
-  console.log(teams)
 
   return (
     <Card column align='flex-start center' transition='background .3s ease-in-out' relative bgColor='white' mr='15px' w='400px'>
@@ -24,7 +23,7 @@ function render ({props}) {
         color='#333'
         targetTime={timeLeft}
         timeLeft={(timeLeft || 0) - elapsedTime}
-        transition='height .3s ease-in-out'/>
+        transition='height .3s ease-in-out' />
       {mine && !done && (
         <Flex absolute bottom='0' h='40%' wide>
           <Button
@@ -68,7 +67,6 @@ function render ({props}) {
     }
   }
 }
-
 
 export default {
   render

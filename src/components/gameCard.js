@@ -1,3 +1,5 @@
+/** @jsx element */
+
 import element from 'vdux/element'
 import {createGame} from '../actions'
 import {Box, Block, Card, Flex, Text} from 'vdux-containers'
@@ -15,23 +17,21 @@ const palette = [
 ]
 
 function render ({props}) {
-  const {name, description, increments, rule, seconds, minutes, timer, uid} = props
+  const {name, description, increments, rule, timer, uid, deviceName, deviceGame} = props
   const color = palette[Math.floor(Math.random() * palette.length)]
 
-  console.log('gamecard', uid)
   return (
     <Card
       hoverProps={{highlight: true}}
       bgColor={color}
       cursor='pointer'
-      onClick={() => createGame({name, rule, description, increments, timer}, uid)}
+      onClick={() => createGame({name, rule, description, increments, timer, deviceName, deviceGame}, uid)}
       m='15px'
       w='30vw'
       h='500px'
       minWidth='300px'
       maxWidth='500px'
-      transition='background .3s ease-in-out'
-      >
+      transition='background .3s ease-in-out'>
       <Block textAlign='center' color='white' h='45%' p='0 20px' align='center center' column>
         <Block mb='8px'>
           <Text fs='30px' weight='200'>{name}</Text>
@@ -77,7 +77,6 @@ function render ({props}) {
           )
         })}
       </Block>
-
     </Card>
   )
 }

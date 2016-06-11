@@ -6,7 +6,7 @@ import NoTeams from '../components/noTeams'
 import map from '@f/map'
 import reduce from '@f/reduce'
 import getScore from '../utils/getScore'
-import firebase from 'vdux-fire'
+import fire from 'vdux-fire'
 import ControlPanel from '../components/controlPanel'
 import {Card, Flex, Grid} from 'vdux-ui'
 
@@ -24,7 +24,9 @@ function render ({props, state, local}) {
       elapsedTime,
       running,
       timer,
-      creatorId
+      creatorId,
+      deviceName,
+      deviceGame
     } = value
     var {minutes, seconds} = timer
     var mine = uid === creatorId
@@ -36,7 +38,6 @@ function render ({props, state, local}) {
   }, teams)
 
   items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
-  console.log('game', uid)
 
   return (
     <Flex h='80vh' column align='space-between'>
@@ -50,7 +51,7 @@ function render ({props, state, local}) {
           timeLeft={timeLeft}
           mine={mine}
           elapsedTime={elapsedTime}/>}
-        {items ? items : '...loading'}
+        {loading ? '...loading' : items}
       </Flex>
     </Flex>
   )
@@ -72,7 +73,7 @@ function render ({props, state, local}) {
   }
 }
 
-export default firebase(props => ({
+export default fire(props => ({
   game: `games/${props.id}`
 }))({
   render

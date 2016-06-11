@@ -1,9 +1,11 @@
 import element from 'vdux/element'
 import {Flex, Block} from 'vdux-ui'
 
-function render ({children}) {
+function render ({props, children}) {
+  const {header} = props
   return (
-    <Flex align='center center' relative wide tall>
+    <Flex column align='center center' relative wide tall>
+      {header ? header : null}
       <Block m='20px' auto>
         {children}
       </Block>
