@@ -52,7 +52,7 @@
     "firebase": "^3.0.3",
     "flatten": "^1.0.2",
     "hashids": "^1.0.2",
-    "light-game": "^0.1.6",
+    "light-game": "^0.1.8",
     "multi": "^0.1.3",
     "redux-effects": "^0.4.3",
     "redux-effects-location": "^0.2.0",
