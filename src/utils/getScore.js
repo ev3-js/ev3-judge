@@ -1,4 +1,7 @@
 import stringTemplate from 'string-template'
+import BigEval from 'bigeval'
+
+const expEval = new BigEval()
 
 export default (commands, points, rule) => {
   if (isNaN(commands) || commands === 0) {
@@ -8,6 +11,6 @@ export default (commands, points, rule) => {
       points,
       commands
     })
-    return Math.floor(eval(exp)) || 0
+    return Math.floor(expEval.exec(exp)) || 0
   }
 }

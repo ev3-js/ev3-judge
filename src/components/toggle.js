@@ -2,9 +2,10 @@
  * Imports
  */
 
+ /** @jsx element*/
+
 import element from 'vdux/element'
 import {Block, Flex, Input} from 'vdux-ui'
-import flatten from 'flatten'
 
 /**
  * Toggle component
@@ -12,8 +13,8 @@ import flatten from 'flatten'
 
 function render ({props, children}) {
   const {
-    w, name, label, labelClass, color = 'secondary', bgColor = 'primary',
-    labelProps = {}, active, ...restProps
+    w, name, label, labelClass, bgColor = 'primary',
+    labelProps = {}, active
   } = props
 
   return (
@@ -35,7 +36,7 @@ function render ({props, children}) {
           overflow='visible'
           cursor='pointer'
           {...labelProps}
-          class={'vui-toggle-label'}>
+          class={['vui-toggle-label', labelClass]}>
           {label}
         </Block>
         <Block relative p='4px 0px 4px 2px' w='36px'>

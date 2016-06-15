@@ -1,9 +1,10 @@
+/** @jsx element */
+
 import element from 'vdux/element'
 import reduce from '@f/reduce'
 import fire from 'vdux-fire'
-import lightGame from 'light-game'
 
-import {Menu, MenuItem} from 'vdux-containers'
+import {MenuItem} from 'vdux-containers'
 import {Text, Flex} from 'vdux-ui'
 import {setUrl} from 'redux-effects-location'
 
@@ -20,7 +21,7 @@ function render ({props}) {
             onClick={() => setUrl(`/game/${game.id}`)}>
             <Text display='block'>{game.id}</Text>
             <Text display='block'>{game.name}</Text>
-            {game.teams && Object.keys(game.teams).map((name) => <Text  display='block'>{name}</Text>)}
+            {game.teams && Object.keys(game.teams).map((name) => <Text display='block'>{name}</Text>)}
           </MenuItem>)
         return arr
       }, [], value)}
@@ -29,8 +30,8 @@ function render ({props}) {
   )
 }
 
-export default fire(props => ({
-  games: `games`
+export default fire((props) => ({
+  games: 'games'
 }))({
   render
 })

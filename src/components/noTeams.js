@@ -4,7 +4,7 @@ import element from 'vdux/element'
 import {Card, Text, Flex} from 'vdux-ui'
 
 function render ({props}) {
-	const {id} = props
+  const {id} = props
 
   return (
     <Card tall wide>

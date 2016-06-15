@@ -1,11 +1,9 @@
 /** @jsx element */
 import element from 'vdux/element'
 import GameCard from '../components/gameCard'
-import Tabs from '../components/Tabs'
 import objReduce from '@f/reduce-obj'
 import fire from 'vdux-fire'
-import firebase from 'firebase'
-import {Button, Block, Card, Icon, Grid} from 'vdux-containers'
+import {Button, Block, Icon, Grid} from 'vdux-containers'
 import {setUrl} from 'redux-effects-location'
 import {initializeApp} from '../actions'
 
@@ -43,20 +41,20 @@ function render ({props}) {
   )
 
   function getItems (types) {
-  	return objReduce((acc, val, key) => {
-  		acc.push(
+    return objReduce((acc, val, key) => {
+      acc.push(
         <GameCard
           name={key}
           uid={uid}
           {...val}/>
       )
-  		return acc
-  	}, [], types)
+      return acc
+    }, [], types)
   }
 }
 
-export default fire(props => ({
-  gameTypes: `gameTypes`
+export default fire((props) => ({
+  gameTypes: 'gameTypes'
 }))({
   render,
   onCreate

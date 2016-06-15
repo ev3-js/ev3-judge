@@ -5,7 +5,6 @@
 import domready from '@f/domready'
 import vdux from 'vdux/dom'
 import reducer from './reducer'
-import logger from 'redux-logger'
 import location from 'redux-effects-location'
 import theme from './theme'
 import timeout from 'redux-effects-timeout'
@@ -26,10 +25,10 @@ const initialState = {
 }
 
 const config = {
-  apiKey: "AIzaSyA1Ib5i5HZPCxnKp4ITiUoy5VEKaLMdsDY",
-  authDomain: "play-ev3.firebaseapp.com",
-  databaseURL: "https://play-ev3.firebaseio.com",
-  storageBucket: "play-ev3.appspot.com",
+  apiKey: 'AIzaSyA1Ib5i5HZPCxnKp4ITiUoy5VEKaLMdsDY',
+  authDomain: 'play-ev3.firebaseapp.com',
+  databaseURL: 'https://play-ev3.firebaseio.com',
+  storageBucket: 'play-ev3.appspot.com'
 }
 /**
  * App
@@ -51,7 +50,7 @@ const {subscribe, render, replaceReducer} = vdux({
 })
 
 domready(() => {
-  subscribe(state => {
+  subscribe((state) => {
     render(app(state), {uiTheme: theme})
   })
 })

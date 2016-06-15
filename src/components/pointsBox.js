@@ -1,7 +1,6 @@
 /** @jsx element*/
 
 import element from 'vdux/element'
-import getScore from '../utils/getScore'
 import {Box, Text, Flex} from 'vdux-ui'
 
 function render ({props}) {

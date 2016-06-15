@@ -7,7 +7,7 @@ import {Block, Box, Text, Flex} from 'vdux-ui'
 
 function render ({props}) {
   let value = []
-  const {messages} = props
+  const {messages, maxHeight} = props
   const {loading} = messages
 
   if (!loading) {
@@ -16,9 +16,9 @@ function render ({props}) {
   }
 
   return (
-    <Block p={isMessages && '10px'} maxHeight='50%' overflowX='hidden' overflowY='auto'>
+    <Block p={isMessages && '10px'} maxHeight={maxHeight} overflowX='hidden' overflowY='auto'>
       {isMessages && reduce((arr, {description, points}) => {
-        arr.push (
+        arr.push(
           <Flex fs='18px' weight='300' p='2px 15px'>
             <Box wide>
               <Text>{description}</Text>
@@ -34,7 +34,7 @@ function render ({props}) {
   )
 }
 
-export default fire(props => ({
+export default fire((props) => ({
   messages: `games/${props.gameId}/teams/${props.team}/messages`
 }))({
   render
