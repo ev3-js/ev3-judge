@@ -2,18 +2,17 @@
 
 import CountdownTimer from './timer'
 import element from 'vdux/element'
-import reduce from '@f/reduce'
 
 import {setTimerId} from '../actions'
 import {interval, cancelInterval} from 'redux-effects-timeout'
-import {Card, Flex, Menu, MenuItem} from 'vdux-ui'
+import {Card, Flex} from 'vdux-ui'
 import {firebaseSet} from 'vdux-fire'
 import {Button} from 'vdux-containers'
 import {bind} from 'redux-effects'
 
 function render ({props}) {
-  const {teams, timeLeft, running, timerId, elapsedTime = 0, gameId, mine} = props
-  const done = timeLeft && timeLeft - elapsedTime === 0
+  const {timer, running, timerId, elapsedTime = 0, gameId, mine} = props
+  const done = timer && timer - elapsedTime === 0
 
   return (
     <Card column align='flex-start center' transition='background .3s ease-in-out' relative bgColor='white' mr='15px' w='400px'>
@@ -21,8 +20,8 @@ function render ({props}) {
         wide
         h={done ? '100%' : '60%'}
         color='#333'
-        targetTime={timeLeft}
-        timeLeft={(timeLeft || 0) - elapsedTime}
+        targetTime={timer}
+        timeLeft={(timer || 0) - elapsedTime}
         transition='height .3s ease-in-out' />
       {mine && !done && (
         <Flex absolute bottom='0' h='40%' wide>
@@ -34,18 +33,12 @@ function render ({props}) {
             bgColor='white'
             fs='20px'
             color='#333'
-            disabled={timeLeft && elapsedTime === timeLeft}
+            disabled={timer && elapsedTime === timer}
             transition='background .3s ease-in-out'
             borderRight='2px solid rgba(236, 236, 236, 0.4)'
             borderTop='2px solid rgba(236, 236, 236, 0.4)'>{running ? 'Stop' : 'Start'}</Button>
         </Flex>
       )}
-      <Menu>
-        {teams && reduce((arr, team) => {
-          arr.push(<MenuItem>{team.name}</MenuItem>)
-          return arr
-        }, [], teams)}
-      </Menu>
     </Card>
   )
 
@@ -57,7 +50,7 @@ function render ({props}) {
           ref: `games/${gameId}/elapsedTime`,
           value: (currTime) => currTime + 1,
           method: 'transaction'
-        }), 1000), id => setTimerId(id))
+        }), 1000), (id) => setTimerId(id))
       ]
     } else {
       return [

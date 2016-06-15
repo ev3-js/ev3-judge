@@ -17,7 +17,7 @@ const palette = [
 ]
 
 function render ({props}) {
-  const {name, description, increments, rule, timer, uid, deviceName, deviceGame} = props
+  const {name, description, increments, rule, timer, uid, deviceName = '', deviceGame = ''} = props
   const color = palette[Math.floor(Math.random() * palette.length)]
 
   return (

@@ -1,4 +1,5 @@
-import {CSSContainer} from 'vdux-containers'
+/** @jsx element */
+
 import element from 'vdux/element'
 import Toggle from './toggle'
 import handleActions from '@f/handle-actions'

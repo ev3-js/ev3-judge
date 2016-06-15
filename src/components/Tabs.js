@@ -14,7 +14,7 @@ function render ({props, state, local, children}) {
     <Block {...props}>
       <Block tall pointer absolute w='400px'>
         <Flex tall>
-          {children.map(child => {
+          {children.map((child) => {
             child.props.w = `${width}%`
             return child
           })}

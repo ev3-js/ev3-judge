@@ -45,6 +45,7 @@
     "@weo-edu/schema": "https://github.com/weo-edu/schema.git",
     "@weo-edu/validate": "https://github.com/weo-edu/validate.git",
     "babel-polyfill": "^6.8.0",
+    "bigeval": "^1.2.1",
     "cors": "^2.7.1",
     "declarative-location": "^0.1.7",
     "enroute": "^1.0.1",

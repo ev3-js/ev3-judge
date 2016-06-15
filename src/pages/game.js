@@ -8,50 +8,48 @@ import reduce from '@f/reduce'
 import getScore from '../utils/getScore'
 import fire from 'vdux-fire'
 import ControlPanel from '../components/controlPanel'
-import {Card, Flex, Grid} from 'vdux-ui'
+import {Flex} from 'vdux-ui'
 
 function render ({props, state, local}) {
   const {game, id, timerId, uid} = props
   const {value, loading} = game
-  var items
-  var teams = {}
 
-  if (!loading) {
-    var {
-      increments = [],
-      rule = '{points} / {commands}',
-      teams = {},
-      elapsedTime,
-      running,
-      timer,
-      creatorId,
-      deviceName,
-      deviceGame
-    } = value
-    var {minutes, seconds} = timer
-    var mine = uid === creatorId
+  if (loading) {
+    return <div>...loading</div>
   }
 
-  const timeLeft = seconds + (minutes * 60)
+  const {
+    rule = '{points} / {commands}',
+    teams = {},
+    elapsedTime,
+    increments,
+    deviceGame,
+    creatorId,
+    running,
+    timer
+  } = value
+  const {minutes, seconds} = timer
+  const mine = uid === creatorId
+  const targetTime = Number(minutes) * 60 + Number(seconds)
+
   const points = map((team) => {
     return getScore(team.commands, team.points, rule)
   }, teams)
 
-  items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
+  const items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
 
   return (
     <Flex h='80vh' column align='space-between'>
       <Flex h='100%'>
         {Object.keys(teams).length > 0 && <ControlPanel
-          teams={teams}
           points={points}
           timerId={timerId}
-          running={running}
           gameId={id}
-          timeLeft={timeLeft}
-          mine={mine}
-          elapsedTime={elapsedTime}/>}
-        {loading ? '...loading' : items}
+          timer={targetTime}
+          elapsedTime={elapsedTime}
+          running={running}
+          mine={mine}/>}
+        {items}
       </Flex>
     </Flex>
   )
@@ -61,9 +59,9 @@ function render ({props, state, local}) {
       arr.push(
         <Team
           name={team.name}
-          color={team.color}
+          color={team.color || 'blue'}
           commands={team.commands}
-          mine={mine}
+          mine={mine && deviceGame.length === 0}
           increments={increments}
           points={points[team.name]}
           gameId={id} />
@@ -73,7 +71,7 @@ function render ({props, state, local}) {
   }
 }
 
-export default fire(props => ({
+export default fire((props) => ({
   game: `games/${props.id}`
 }))({
   render
