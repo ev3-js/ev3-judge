@@ -22,7 +22,8 @@ import {setUrl} from 'redux-effects-location'
 
 const router = enroute({
   '/': home,
-  '/browse/:activity': home,
+  '/home': home,
+  '/browse': browse,
   '/form': form,
   '/game/:id': game
 })
@@ -32,16 +33,32 @@ const router = enroute({
  */
 
 function home (params, props) {
-  const {activity} = params
   const header = (
     <Tabs relative tall bgColor='white' color='#333' h='60px' wide>
-      <MenuItem align='center center' tall active={!activity} onClick={() => setUrl('/')} transition='background .3s ease-in-out'>Create a Game</MenuItem>
-      <MenuItem align='center center' tall active={activity === 'running'} onClick={() => setUrl('/browse/running')} transition='background .3s ease-in-out'>Browse</MenuItem>
+      <MenuItem align='center center' tall active onClick={() => setUrl('/home')} transition='background .3s ease-in-out'>Create a Game</MenuItem>
+      <MenuItem align='center center' tall onClick={() => setUrl('/browse')} transition='background .3s ease-in-out'>Browse</MenuItem>
     </Tabs>
   )
+
   return (
     <Centered header={header}>
-      {activity === 'running' ? <Games {...props}/> : <Home {...props}/>}
+      <Home {...props}/>
+    </Centered>
+  )
+}
+
+function browse (params, props) {
+  const header = (
+    <Tabs relative tall bgColor='white' color='#333' h='60px' wide>
+      <MenuItem align='center center' tall onClick={() => setUrl('/home')} transition='background .3s ease-in-out'>Create a Game</MenuItem>
+      <MenuItem align='center center' tall active onClick={() => setUrl('/browse')} transition='background .3s ease-in-out'>Browse</MenuItem>
+    </Tabs>
+  )
+
+  return (
+    <Centered header={header}>
+      <div style={{display: 'none'}}>browse</div>
+      <Games {...props}/>
     </Centered>
   )
 }
@@ -49,6 +66,8 @@ function home (params, props) {
 function form (params, props) {
   return (
     <Centered>
+      <div style={{display: 'none'}}>form</div>
+      <div style={{display: 'none'}}>form</div>
       <Form {...props} />
     </Centered>
   )
@@ -57,6 +76,9 @@ function form (params, props) {
 function game (params, props) {
   return (
     <Centered>
+      <div style={{display: 'none'}}>game</div>
+      <div style={{display: 'none'}}>game</div>
+      <div style={{display: 'none'}}>game</div>
       <Game {...props} id={params.id}/>
     </Centered>
   )
