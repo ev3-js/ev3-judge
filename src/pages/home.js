@@ -6,6 +6,7 @@ import fire from 'vdux-fire'
 import {Button, Block, Icon, Grid} from 'vdux-containers'
 import {setUrl} from 'redux-effects-location'
 import {initializeApp} from '../actions'
+import IndeterminateProgress from '../components/indeterminateProgress'
 
 function onCreate () {
   return initializeApp()
@@ -14,10 +15,15 @@ function onCreate () {
 function render ({props}) {
   const {gameTypes, uid} = props
   const {value, loading} = gameTypes
+
+  if (loading) {
+    return <IndeterminateProgress absolute left='0' top='60px'/>
+  }
+
   return (
     <Block>
       <Grid columnAlign='start start' itemsPerRow={3}>
-        {!loading ? getItems(value) : '...loading'}
+        {getItems(value)}
       </Grid>
       <Button
         fixed

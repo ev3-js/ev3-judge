@@ -1,21 +1,26 @@
 /** @jsx element */
 
+import IndeterminateProgress from '../components/indeterminateProgress'
+import {setUrl} from 'redux-effects-location'
+import {MenuItem} from 'vdux-containers'
 import element from 'vdux/element'
+import {Text, Flex} from 'vdux-ui'
 import reduce from '@f/reduce'
 import fire from 'vdux-fire'
-
-import {MenuItem} from 'vdux-containers'
-import {Text, Flex} from 'vdux-ui'
-import {setUrl} from 'redux-effects-location'
 
 function render ({props}) {
   const {games} = props
   const {value, loading} = games
+
+  if (loading) {
+    return <IndeterminateProgress absolute left='0' top='60px'/>
+  }
+
   return (
     <Flex column>
-      {!loading && <Text display='block'>Games</Text>}
+      <Text display='block'>Games</Text>
       <Flex>
-      {loading ? '...loading' : reduce((arr, game) => {
+      {reduce((arr, game) => {
         arr.push(
           <MenuItem
             onClick={() => setUrl(`/game/${game.id}`)}>

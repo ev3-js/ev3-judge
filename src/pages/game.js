@@ -8,6 +8,7 @@ import reduce from '@f/reduce'
 import getScore from '../utils/getScore'
 import fire from 'vdux-fire'
 import ControlPanel from '../components/controlPanel'
+import IndeterminateProgress from '../components/indeterminateProgress'
 import {Flex} from 'vdux-ui'
 
 function render ({props, state, local}) {
@@ -15,7 +16,7 @@ function render ({props, state, local}) {
   const {value, loading} = game
 
   if (loading) {
-    return <div>...loading</div>
+    return <IndeterminateProgress absolute left='0' top='60px'/>
   }
 
   const {
