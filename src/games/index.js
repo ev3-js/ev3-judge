@@ -2,7 +2,7 @@ import lightGame, {deactivateLight, source, set} from 'light-game'
 import firebase from 'firebase'
 
 function blackout ({device, game, team, points}) {
-  const {runner, getActive} = lightGame(device, {active: [1, 2, 3, 4]})
+  const {runner, getActive} = lightGame(device)
   const subscription = source.subscribe(function (port) {
     port = Number(port)
     runner(function * () {
