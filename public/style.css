@@ -41,3 +41,12 @@ button:disabled {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
+@keyframes enter {
+  from {transform: translateY(-100%); opacity: 0}
+  to {transform: translateY(0%); opacity: 1}
+}
+.entering {
+  animation-name: enter;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+}

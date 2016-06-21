@@ -4,11 +4,12 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-.read	database.rules.json	/^  ".read": true,$/;"	f
-.write	database.rules.json	/^  ".write": true$/;"	f
+.read	database.rules.json	/^  ".read": "auth != null",$/;"	f
+.write	database.rules.json	/^  ".write": "auth != null"$/;"	f
 @f/create-action	package.json	/^    "@f\/create-action": "^1.1.1",$/;"	f
 @f/curry-once	package.json	/^    "@f\/curry-once": "^1.3.2",$/;"	f
 @f/domready	package.json	/^    "@f\/domready": "^1.0.2",$/;"	f
+@f/flatten-gen	package.json	/^    "@f\/flatten-gen": "^2.0.0",$/;"	f
 @f/foreach-obj	package.json	/^    "@f\/foreach-obj": "^1.1.1",$/;"	f
 @f/handle-actions	package.json	/^    "@f\/handle-actions": "^1.1.2",$/;"	f
 @f/map	package.json	/^    "@f\/map": "^1.5.3",$/;"	f
@@ -64,7 +65,7 @@ dependencies	package.json	/^  "dependencies": {$/;"	f
 deploy	package.json	/^    "deploy": "git push -u origin master && git push heroku master",$/;"	f
 description	package.json	/^  "description": "Live judging for ev3-client",$/;"	f
 destination	firebase.json	/^        "destination": "\/index.html"$/;"	f
-dev	package.json	/^    "dev": "node server.js & watchify src\/client.js -o public\/bundle.js -d -t babelify -p browserify-hmr",$/;"	f
+dev	package.json	/^    "dev": "firebase serve & watchify src\/client.js -o public\/bundle.js -d -t babelify -p browserify-hmr",$/;"	f
 devDependencies	package.json	/^  "devDependencies": {$/;"	f
 directories	package.json	/^  "directories": {$/;"	f
 engines	package.json	/^  "engines": {$/;"	f
@@ -77,10 +78,12 @@ getUnits	src/components/timer.js	/^function getUnits (time) {$/;"	f
 hashids	package.json	/^    "hashids": "^1.0.2",$/;"	f
 homepage	package.json	/^  "homepage": "https:\/\/github.com\/ev3-js\/ev3-judge#readme",$/;"	f
 hosting	firebase.json	/^  "hosting": {$/;"	f
+howler	package.json	/^    "howler": "^1.1.29",$/;"	f
 init:git	package.json	/^    "init:git": "git init && git add --all && git commit -am 'FIRST' && git remote add origin https:\/\/danleavitt0@github.com\/ev3-js\/ev3-judge.git && git push -u origin master",$/;"	f
 init:travis	package.json	/^    "init:travis": "travis enable",$/;"	f
+initialState	src/pages/home.js	/^function initialState () {$/;"	f
 license	package.json	/^  "license": "MIT",$/;"	f
-light-game	package.json	/^    "light-game": "^0.1.8",$/;"	f
+light-game	package.json	/^    "light-game": "^0.1.9",$/;"	f
 main	package.json	/^  "main": "lib\/index.js",$/;"	f
 minify	package.json	/^    "minify": "cat public\/bundle.js | uglifyjs -o public\/bundle.js",$/;"	f
 multi	package.json	/^    "multi": "^0.1.3",$/;"	f
@@ -92,20 +95,24 @@ postversion	package.json	/^    "postversion": "git push && git push --tags && np
 pre-deploy	package.json	/^    "pre-deploy": "npm run build && npm run minify",$/;"	f
 prepublish	package.json	/^    "prepublish": "npm run build",$/;"	f
 public	firebase.json	/^    "public": "public",$/;"	f
+reducer	src/pages/home.js	/^function reducer (state, action) {$/;"	f
 redux-effects	package.json	/^    "redux-effects": "^0.4.3",$/;"	f
 redux-effects-location	package.json	/^    "redux-effects-location": "^0.2.0",$/;"	f
 redux-effects-timeout	package.json	/^    "redux-effects-timeout": "^0.1.7",$/;"	f
 redux-flo	package.json	/^    "redux-flo": "^2.2.1",$/;"	f
 redux-logger	package.json	/^    "redux-logger": "^2.6.1",$/;"	f
+render	src/components/card.js	/^function render ({props, children, state}) {$/;"	f
 render	src/pages/form.js	/^function render ({state, local, props}) {$/;"	f
-render	src/pages/home.js	/^function render ({props}) {$/;"	f
+render	src/pages/game.js	/^function render ({props, state, local}) {$/;"	f
+render	src/pages/games.js	/^function render ({props}) {$/;"	f
+render	src/pages/home.js	/^function render ({props, state, local}) {$/;"	f
 repository	package.json	/^  "repository": {$/;"	f
 rewrites	firebase.json	/^    "rewrites": [$/;"	f
 rules	firebase.json	/^    "rules": "database.rules.json"$/;"	f
 scripts	package.json	/^  "scripts": {$/;"	f
 socket.io	package.json	/^    "socket.io": "^1.4.5",$/;"	f
 source	firebase.json	/^        "source": "**",$/;"	f
-standard	package.json	/^    "standard": "*"$/;"	f
+standard	package.json	/^    "standard": "*",$/;"	f
 start	package.json	/^    "start": "node server.js"$/;"	f
 stopEvent	src/components/toggle.js	/^function stopEvent (e) {$/;"	f
 string-template	package.json	/^    "string-template": "^1.0.0",$/;"	f
@@ -115,7 +122,7 @@ test	package.json	/^    "test": "tape -r babel-register -r babel-polyfill test\/
 test	package.json	/^    "test": "test"$/;"	f
 type	package.json	/^    "type": "0.0.3",$/;"	f
 type	package.json	/^    "type": "git",$/;"	f
-uglifyjs	package.json	/^    "uglifyjs": "^2.4.10",$/;"	f
+uglifyjs	package.json	/^    "uglifyjs": "^2.4.10"$/;"	f
 url	package.json	/^    "url": "git:\/\/github.com\/ev3-js\/ev3-judge.git"$/;"	f
 url	package.json	/^    "url": "https:\/\/github.com\/ev3-js\/ev3-judge\/issues"$/;"	f
 urlChange	src/actions.js	/^function urlChange (url) {$/;"	f
@@ -125,5 +132,6 @@ vdux	package.json	/^    "vdux": "^2.4.6",$/;"	f
 vdux-containers	package.json	/^    "vdux-containers": "^1.1.6",$/;"	f
 vdux-fire	package.json	/^    "vdux-fire": "^0.1.2",$/;"	f
 vdux-form	package.json	/^    "vdux-form": "^1.0.6",$/;"	f
-vdux-ui	package.json	/^    "vdux-ui": "^1.2.0"$/;"	f
+vdux-ui	package.json	/^    "vdux-ui": "^1.2.15",$/;"	f
 version	package.json	/^  "version": "0.1.1",$/;"	f
+yoco	package.json	/^    "yoco": "^1.6.2"$/;"	f

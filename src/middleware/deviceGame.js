@@ -11,7 +11,7 @@ export default ({dispatch, getState}) => (next) => (action) => {
             obj[inc.name] = {points: inc.points, description: inc.description}
             return obj
           }, {})
-          runGame({device: `devices/${deviceName}`, game: `games/${action.payload}`, team: team.key, points: gamePoints})
+          runGame({device: `devices/${deviceName}`, game: `games/${action.payload}`, team: team.key, points: gamePoints}, dispatch)
         })
       }
     })
