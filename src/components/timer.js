@@ -4,7 +4,6 @@ import {Block, Flex, Text} from 'vdux-ui'
 
 function render ({props}) {
   const {w, h, color, timeLeft, targetTime} = props
-  console.log(timeLeft, targetTime)
   const timeUnits = getUnits(Math.abs(timeLeft))
 
   return (

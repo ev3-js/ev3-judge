@@ -10,6 +10,18 @@ import fire from 'vdux-fire'
 import ControlPanel from '../components/controlPanel'
 import IndeterminateProgress from '../components/indeterminateProgress'
 import {Flex} from 'vdux-ui'
+import {createSound} from '../middleware/audio'
+
+function onCreate () {
+  return [
+    createSound({name: 'collect', opts: {
+      urls: ['../sounds/collect.wav']
+    }}),
+    createSound({name: 'win', opts: {
+      urls: ['../sounds/win.wav']
+    }})
+  ]
+}
 
 function render ({props, state, local}) {
   const {game, id, timerId, uid} = props
@@ -75,5 +87,6 @@ function render ({props, state, local}) {
 export default fire((props) => ({
   game: `games/${props.id}`
 }))({
-  render
+  render,
+  onCreate
 })

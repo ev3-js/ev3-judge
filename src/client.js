@@ -14,6 +14,7 @@ import timer from './middleware/timer'
 import auth from './middleware/auth'
 import deviceGame from './middleware/deviceGame'
 import * as fire from 'vdux-fire'
+import audio from './middleware/audio'
 
 var app = require('./app').default
 
@@ -45,7 +46,8 @@ const {subscribe, render, replaceReducer} = vdux({
     auth,
     deviceGame,
     location(),
-    timer()
+    timer(),
+    audio
   ]
 })
 
