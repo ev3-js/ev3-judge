@@ -52,6 +52,7 @@ function render ({props}) {
               w='20vw'
               h='auto'
               p='20px'
+              bgColor={game.color}
               button={createDeleteButton(game.id)}
               titleSize={game.teams ? '45%' : '100%'}
               childrenSize={'auto'}
