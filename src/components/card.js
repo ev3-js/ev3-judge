@@ -3,24 +3,6 @@
 import element from 'vdux/element'
 import {Block, Card, Text, wrap, CSSContainer} from 'vdux-containers'
 
-const palette = [
-  '#77AAD8',
-  '#FED479',
-  '#F48E8D',
-  '#A9AAA9',
-  '#F9A36A',
-  '#D5ADD1',
-  '#77AAD8',
-  '#7BCED2',
-  '#A7D4A9'
-]
-
-function initialState () {
-  return {
-    color: palette[Math.floor(Math.random() * palette.length)]
-  }
-}
-
 function render ({props, children, state}) {
   const {
     name,
@@ -32,13 +14,14 @@ function render ({props, children, state}) {
     childrenSize = '55%',
     p = '0 20px',
     button,
-    show
+    show,
+    bgColor
   } = props
 
   return (
     <Card
       hoverProps={{highlight: true}}
-      bgColor={state.color}
+      bgColor={bgColor}
       cursor='pointer'
       onClick={onClick}
       m='15px'
@@ -71,6 +54,5 @@ export default wrap(CSSContainer, {
     show: true
   }
 })({
-  initialState,
   render
 })

@@ -101,7 +101,6 @@ redux-effects-location	package.json	/^    "redux-effects-location": "^0.2.0",$/;
 redux-effects-timeout	package.json	/^    "redux-effects-timeout": "^0.1.7",$/;"	f
 redux-flo	package.json	/^    "redux-flo": "^2.2.1",$/;"	f
 redux-logger	package.json	/^    "redux-logger": "^2.6.1",$/;"	f
-render	src/components/card.js	/^function render ({props, children, state}) {$/;"	f
 render	src/pages/form.js	/^function render ({state, local, props}) {$/;"	f
 render	src/pages/game.js	/^function render ({props, state, local}) {$/;"	f
 render	src/pages/games.js	/^function render ({props}) {$/;"	f

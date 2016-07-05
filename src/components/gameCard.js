@@ -1,15 +1,14 @@
 /** @jsx element */
 
 import element from 'vdux/element'
-import {createGame} from '../actions'
 import {Box, Flex} from 'vdux-containers'
 import DisplayCard from './card'
 
 function render ({props}) {
-  const {onClick, name, description, increments, rule, timer, uid, deviceName = ''} = props
+  const {bgColor, name, description, increments, onClick} = props
 
   return (
-    <DisplayCard w='30vw' h='500px' name={name} description={description} onClick={onClick}>
+    <DisplayCard w='30vw' h='500px' bgColor={bgColor} name={name} description={description} onClick={onClick}>
       {increments.map((inc, i) => {
         return (
           <Flex wide h='26.66%' weight='300' align='space-between' py='10px' bgColor={i % 2 === 0 ? '#f5f5f5' : '#fff'}>

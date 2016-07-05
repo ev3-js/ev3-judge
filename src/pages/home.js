@@ -19,14 +19,15 @@ function onCreate () {
 
 function initialState () {
   return {
-    show: false
+    show: false,
+    rules: {}
   }
 }
 
 function render ({props, state, local}) {
   const {gameTypes, uid} = props
   const {value, loading} = gameTypes
-  const {show} = state
+  const {show, rules} = state
 
   if (loading) {
     return <IndeterminateProgress absolute left='0' top='60px'/>
@@ -34,7 +35,7 @@ function render ({props, state, local}) {
 
   return (
     <Block>
-      {show && <GameSelector onDismiss={local(hideModal)}/>}
+      {show && <GameSelector rules={rules} uid={uid} onDismiss={local(hideModal)}/>}
       <Grid columnAlign='start start' itemsPerRow={3}>
         {getItems(value)}
       </Grid>
@@ -65,7 +66,8 @@ function render ({props, state, local}) {
         <GameCard
           name={key}
           uid={uid}
-          onClick={local(showModal)}
+          bgColor={val.color}
+          onClick={local(() => showModal(val))}
           {...val}/>
       )
       return acc
@@ -78,7 +80,8 @@ function reducer (state, action) {
     case showModal.type:
       return {
         ...state,
-        show: true
+        show: true,
+        rules: action.payload
       }
     case hideModal.type:
       return {
