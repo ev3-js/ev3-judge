@@ -14,13 +14,28 @@ const setTimerId = createAction(SET_TIMER_ID)
 const resetTimer = createAction(RESET_TIMER)
 const setUserId = createAction(SET_UID)
 
+const palette = [
+  '#77AAD8',
+  '#FED479',
+  '#F48E8D',
+  '#A9AAA9',
+  '#F9A36A',
+  '#D5ADD1',
+  '#77AAD8',
+  '#7BCED2',
+  '#A7D4A9'
+]
+
 function initializeApp () {
   return bindUrl(urlChange)
 }
 
 function submitForm (rules) {
   return [
-    firebaseSet({ref: `gameTypes/${rules.name}`, value: rules}),
+    firebaseSet({ref: `gameTypes/${rules.name}`, value: {
+      ...rules,
+      color: palette[Math.floor(Math.random() * palette.length)]
+    }}),
     setUrl('/')
   ]
 }
@@ -30,7 +45,14 @@ function createGame (rules, uid) {
   return [
     setUrl(`/game/${id}`),
     {type: 'SET_ID', payload: id},
-    firebaseSet({ref: `games/${id}`, value: {id, creatorId: uid, ...rules}})
+    firebaseSet({
+      ref: `games/${id}`,
+      value: {
+        id,
+        creatorId: uid,
+        ...rules
+      }
+    })
   ]
 }
 
