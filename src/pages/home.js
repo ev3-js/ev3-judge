@@ -1,33 +1,21 @@
 /** @jsx element */
 import IndeterminateProgress from '../components/indeterminateProgress'
 import {Button, Block, Icon, Grid} from 'vdux-containers'
-import GameSelector from '../components/gameSelector'
 import GameCard from '../components/gameCard'
 import {setUrl} from 'redux-effects-location'
-import createAction from '@f/create-action'
 import {initializeApp} from '../actions'
+import {createGame} from '../actions'
 import objReduce from '@f/reduce-obj'
 import element from 'vdux/element'
 import fire from 'vdux-fire'
-
-const showModal = createAction('SHOW_MODAL')
-const hideModal = createAction('HIDE_MODAL')
 
 function onCreate () {
   return initializeApp()
 }
 
-function initialState () {
-  return {
-    show: false,
-    rules: {}
-  }
-}
-
 function render ({props, state, local}) {
   const {gameTypes, uid} = props
   const {value, loading} = gameTypes
-  const {show, rules} = state
 
   if (loading) {
     return <IndeterminateProgress absolute left='0' top='60px'/>
@@ -35,7 +23,6 @@ function render ({props, state, local}) {
 
   return (
     <Block>
-      {show && <GameSelector rules={rules} uid={uid} onDismiss={local(hideModal)}/>}
       <Grid columnAlign='start start' itemsPerRow={3}>
         {getItems(value)}
       </Grid>
@@ -67,7 +54,7 @@ function render ({props, state, local}) {
           name={key}
           uid={uid}
           bgColor={val.color}
-          onClick={local(() => showModal(val))}
+          onClick={() => createGame({...val}, uid)}
           {...val}/>
       )
       return acc
@@ -75,28 +62,9 @@ function render ({props, state, local}) {
   }
 }
 
-function reducer (state, action) {
-  switch (action.type) {
-    case showModal.type:
-      return {
-        ...state,
-        show: true,
-        rules: action.payload
-      }
-    case hideModal.type:
-      return {
-        ...state,
-        show: false
-      }
-  }
-  return state
-}
-
 export default fire((props) => ({
   gameTypes: 'gameTypes'
 }))({
-  initialState,
-  reducer,
   render,
   onCreate
 })

@@ -36,7 +36,7 @@ function render ({props, state, local}) {
     teams = {},
     elapsedTime,
     increments,
-    deviceGame,
+    deviceGame = '',
     creatorId,
     running,
     timer
@@ -52,7 +52,7 @@ function render ({props, state, local}) {
   const items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
 
   return (
-    <Flex h='20vh' column align='space-between'>
+    <Flex h='80vh' column align='space-between'>
       <Flex h='100%'>
         {Object.keys(teams).length > 0 && <ControlPanel
           points={points}

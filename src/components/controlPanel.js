@@ -15,7 +15,7 @@ function render ({props}) {
   const done = timer && timer - elapsedTime === 0
 
   return (
-    <Card column align='flex-start center' transition='background .3s ease-in-out' relative bgColor='white' mr='15px' w='400px'>
+    <Card h='20vh' column align='flex-start center' transition='background .3s ease-in-out' relative bgColor='white' mr='15px' w='400px'>
       <CountdownTimer
         wide
         h={done ? '100%' : '60%'}
