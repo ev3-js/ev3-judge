@@ -3,7 +3,7 @@ import {bindUrl, setUrl} from 'redux-effects-location'
 import createAction from '@f/create-action'
 import {firebaseSet} from 'vdux-fire'
 
-const hashids = new Hashids('the saltiest ocean', 4)
+const hashids = new Hashids('the saltiest ocean', 4, 'abcdefghijklmnopqrstuvwxyz')
 const URL_DID_CHANGE = 'URL_DID_CHANGE'
 const SUBMIT_FORM = 'SUBMIT_FORM'
 const SET_TIMER_ID = 'SET_TIMER_ID'
