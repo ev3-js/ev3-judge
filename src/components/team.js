@@ -7,7 +7,16 @@ import {firebaseSet} from 'vdux-fire'
 import {Card, Text} from 'vdux-ui'
 
 function render ({props, local, state}) {
-  const {rule, commands, increments, name, color, points, gameId, mine} = props
+  const {
+    rule,
+    commands = 0,
+    increments,
+    name,
+    color,
+    points = 0,
+    gameId,
+    mine
+  } = props
 
   return (
     <Card minHeight='450px' h='100%' w='400px' m='0 10px'>

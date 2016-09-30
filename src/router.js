@@ -35,7 +35,7 @@ const router = enroute({
 function home (params, props) {
   const header = (
     <Tabs relative tall bgColor='white' color='#333' h='60px' wide>
-      <MenuItem align='center center' tall active onClick={() => setUrl('/home')} transition='background .3s ease-in-out'>Create a Game</MenuItem>
+      <MenuItem align='center center' tall active onClick={() => setUrl('/')} transition='background .3s ease-in-out'>Create a Game</MenuItem>
       <MenuItem align='center center' tall onClick={() => setUrl('/browse')} transition='background .3s ease-in-out'>My Games</MenuItem>
     </Tabs>
   )
@@ -50,7 +50,7 @@ function home (params, props) {
 function browse (params, props) {
   const header = (
     <Tabs relative tall bgColor='white' color='#333' h='60px' wide>
-      <MenuItem align='center center' tall onClick={() => setUrl('/home')} transition='background .3s ease-in-out'>Create a Game</MenuItem>
+      <MenuItem align='center center' tall onClick={() => setUrl('/')} transition='background .3s ease-in-out'>Create a Game</MenuItem>
       <MenuItem align='center center' tall active onClick={() => setUrl('/browse')} transition='background .3s ease-in-out'>My Games</MenuItem>
     </Tabs>
   )
