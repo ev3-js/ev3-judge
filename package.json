@@ -12,7 +12,7 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run build; npm run minify",
     "postpublish": "npm run clean",
     "postversion": "git push && git push --tags && npm publish --access=public",
     "validate": "standard",
