@@ -38,7 +38,6 @@ function initialState () {
 
 function render ({state, local, props}) {
   const {increment, timer, device, deviceType} = state
-  console.log(state)
   return (
     <Form cast={cast} validate={validate} onSubmit={submitForm}>
       <Card p='20px'>
@@ -80,7 +79,6 @@ function render ({state, local, props}) {
               </Block>
               <Block w='213px' display='inline-block'>
                 <Input display='none' value={deviceType} name='deviceGame'/>
-                <Input wide mb='0' ml='10px' disabled={!device} placeholder='device name' name='deviceName'/>
               </Block>
             </Block>
           </TextFields>
@@ -143,7 +141,6 @@ function cast (model) {
     name,
     rule,
     increments,
-    deviceName,
     deviceGame,
     timer: {
       minutes,

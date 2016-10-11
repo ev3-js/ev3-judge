@@ -6,11 +6,22 @@ import NoTeams from '../components/noTeams'
 import map from '@f/map'
 import reduce from '@f/reduce'
 import getScore from '../utils/getScore'
-import fire from 'vdux-fire'
+import fire, {firebaseSet} from 'vdux-fire'
 import ControlPanel from '../components/controlPanel'
 import IndeterminateProgress from '../components/indeterminateProgress'
 import {Flex} from 'vdux-ui'
+import {Button, Input} from 'vdux-containers'
+import Modal from '../components/Modal'
 import {createSound} from '../middleware/audio'
+import createAction from '@f/create-action'
+
+const updateText = createAction('UPDATE_TEXT')
+
+function initialState () {
+  return {
+    text: ''
+  }
+}
 
 function onCreate () {
   return [
@@ -26,6 +37,7 @@ function onCreate () {
 function render ({props, state, local}) {
   const {game, id, timerId, uid} = props
   const {value, loading} = game
+  const {text} = state
 
   if (loading) {
     return <IndeterminateProgress absolute left='0' top='60px'/>
@@ -36,6 +48,7 @@ function render ({props, state, local}) {
     teams = {},
     elapsedTime,
     increments,
+    deviceName,
     deviceGame = '',
     creatorId,
     running,
@@ -51,8 +64,20 @@ function render ({props, state, local}) {
 
   const items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
 
+  console.log(deviceName)
+
   return (
     <Flex h='80vh' column align='space-between'>
+      {!deviceName && <Modal
+        header='Input device name'
+        footer={<Button
+          fs='m'
+          px='18px'
+          onClick={() => setDeviceName(text)}>
+            Save
+        </Button>}>
+        <Input onKeyUp={local(updateText)}/>
+      </Modal>}
       <Flex h='100%'>
         {Object.keys(teams).length > 0 && <ControlPanel
           points={points}
@@ -82,11 +107,34 @@ function render ({props, state, local}) {
       return arr
     }, [], teams)
   }
+
+  function setDeviceName (name) {
+    return firebaseSet({
+      method: 'update',
+      ref: `games/${props.id}`,
+      value: {
+        deviceName: name
+      }
+    })
+  }
+}
+
+function reducer (state, action) {
+  switch (action.type) {
+    case updateText.type:
+      return {
+        ...state,
+        text: action.payload.target.value
+      }
+  }
+  return state
 }
 
 export default fire((props) => ({
   game: `games/${props.id}`
 }))({
   render,
+  reducer,
+  initialState,
   onCreate
 })

@@ -24,5 +24,6 @@ export default {
     divider: baseColors.lightgray,
     text: baseColors.black,
     disabled: baseColors.lightgray
-  }
+  },
+  spinnerAnimation: 'change me'
 }

@@ -65,10 +65,10 @@
     "string-template": "^1.0.0",
     "type": "0.0.3",
     "vdux": "^2.4.6",
-    "vdux-containers": "^1.1.6",
+    "vdux-containers": "^1.1.23",
     "vdux-fire": "^0.1.2",
     "vdux-form": "^1.0.6",
-    "vdux-ui": "^1.2.15",
+    "vdux-ui": "^1.2.35",
     "yoco": "^1.6.2"
   },
   "devDependencies": {
