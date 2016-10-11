@@ -12,8 +12,8 @@ export default ({getState, dispatch}) => (next) => (action) => {
       sounds[action.payload.name] = new Howl(action.payload.opts)
       break
     case playSound.type:
-      sounds[action.payload].play()
-      break
+      const {name, sprite = ''} = action.payload
+      return sounds[name || action.payload].play(sprite)
   }
   return next(action)
 }

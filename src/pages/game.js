@@ -12,7 +12,6 @@ import IndeterminateProgress from '../components/indeterminateProgress'
 import {Flex} from 'vdux-ui'
 import {Button, Input} from 'vdux-containers'
 import Modal from '../components/Modal'
-import {createSound} from '../middleware/audio'
 import createAction from '@f/create-action'
 
 const updateText = createAction('UPDATE_TEXT')
@@ -21,17 +20,6 @@ function initialState () {
   return {
     text: ''
   }
-}
-
-function onCreate () {
-  return [
-    createSound({name: 'collect', opts: {
-      urls: ['../sounds/collect.wav']
-    }}),
-    createSound({name: 'win', opts: {
-      urls: ['../sounds/win.wav']
-    }})
-  ]
 }
 
 function render ({props, state, local}) {
@@ -64,11 +52,9 @@ function render ({props, state, local}) {
 
   const items = Object.keys(teams).length < 1 ? <NoTeams id={id}/> : getTeams()
 
-  console.log(deviceName)
-
   return (
     <Flex h='80vh' column align='space-between'>
-      {!deviceName && <Modal
+      {deviceGame && !deviceName && <Modal
         header='Input device name'
         footer={<Button
           fs='m'
@@ -135,6 +121,5 @@ export default fire((props) => ({
 }))({
   render,
   reducer,
-  initialState,
-  onCreate
+  initialState
 })

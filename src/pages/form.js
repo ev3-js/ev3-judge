@@ -120,7 +120,7 @@ function render ({state, local, props}) {
 }
 
 function cast (model) {
-  let {rule, name, description, minutes, seconds, deviceGame, deviceName} = model
+  let {rule, name, description, minutes, seconds, deviceGame} = model
   let increments = []
   minutes = Number(minutes) || 0
   seconds = Number(seconds) || 0
@@ -155,7 +155,10 @@ function validate (fields) {
 
 const reducer = handleActions({
   [addIncrement]: (state) => ({...state, increment: [...state.increment, {}]}),
-  [rmIncrement]: (state, payload) => ({...state, increment: splice(state.increment, payload, 1)}),
+  [rmIncrement]: (state, payload) => ({
+    ...state,
+    increment: splice(state.increment, payload, 1)
+  }),
   [toggleTime]: (state) => ({...state, timer: !state.timer}),
   [toggleDevice]: (state) => ({...state, device: !state.device}),
   [setDevice]: (state, payload) => ({...state, deviceType: payload})
