@@ -24,8 +24,7 @@
     "postinit": "npm install && npm run init:git && npm run init:travis",
     "test": "tape -r babel-register -r babel-polyfill test/*",
     "dev": "firebase serve & watchify src/client.js -o public/bundle.js -d -t babelify -p browserify-hmr",
-    "pre-deploy": "npm run build && npm run minify",
-    "deploy": "git push -u origin master && git push heroku master",
+    "deploy": "npm run build; npm run minify; firebase deploy",
     "start": "node server.js"
   },
   "dependencies": {
