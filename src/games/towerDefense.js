@@ -42,7 +42,7 @@ export default function ({device, game, team, points}, dispatch) {
                           .ref(`${game}/elapsedTime`)
                           .once('value')
       yield updatePoints({
-        points: 1000 - time.val(),
+        points: time.val(),
         description: 'Finished the game'
       })
       yield set({ ref: `${device}/presses`, value: '' })
